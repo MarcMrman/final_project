@@ -22,7 +22,7 @@ This visualization gives an easy and quick view on our discoveries on planets in
 - Dropdown menu (MVP): Here the y-axis of the scatter plot can be chosen. The choices are between distance to the planet and distance to the star of the planet from earth measured.  
 - Checkbox (MVP): Here a selection can be made. The choices are about if the orbit of the planet is longer/shorter than earths' is.  
 
-## Prerequisites  
+### Prerequisites  
 The folder "doc" contains pictures of my visualization.  
 Data source: https://www.kaggle.com/eduardowoj/exoplanets-database/data  
 External components: d3, d3-tip  
