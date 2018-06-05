@@ -13,7 +13,7 @@ Space is a difficult concept. On our search to a new habitable planet a lot of o
 **Solution**  
 This visualization gives an easy and quick view on our discoveries on planets in space.  
 
-![proposal sketch](doc/Visualization_sketch.jpg)
+![proposal sketch](doc/project_visualization.jpg)
 
 **Main features:**  
 - Scatter plot (MVP): This plot will display the mass and distance of the planet. Distance can be chosen to the planet itself or its sun through a dropdown menu. You can hover over the planets, this will show the name, mass and relevant distance of that specific planet. Optional: Coloring the planets depending on their eccentricity (how round a planet is).  
