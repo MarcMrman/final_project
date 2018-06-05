@@ -13,6 +13,8 @@ Space is a difficult concept. On our search to a new habitable planet a lot of o
 **Solution**  
 This visualization gives an easy and quick view on our discoveries on planets in space.  
 
+![drawn proposal][doc/Visualization_sketch.jpg]
+
 **Main features:**  
 - Scatter plot (MVP): This plot will display the mass and distance of the planet. Distance can be chosen to the planet itself or its sun through a dropdown menu. You can hover over the planets, this will show the name, mass and relevant distance of that specific planet. Optional: Coloring the planets depending on their eccentricity (how round a planet is).  
 - Bar chart (MVP): This chart shows the development of planet discovery over time. When hovering over a bar, the year and the number of planets discovered will be told. When clicked on a bar, the pie chart and the scatter plot will be updated to the according year.  
