@@ -1,6 +1,6 @@
 # Design Document  
 
-![design document](doc/document_design.jpg)
+![design document](doc/design_documentscheef.jpg)
 
 - Data source  
 My one data source is Kaggle (https://www.kaggle.com/eduardowoj/exoplanets-database/data). I will download a csv-file here and use my CSV2JSON.py to convert the csv-file into a json file. I will transform my data in such a way that data for corresponding years is in one list per topic. So amount of planets discovered per year, the methods used, distance etc. I will do this by initializing an empty list every time so I will not end up with over 20 filled lists. I will filter the data on missing data as well.  
