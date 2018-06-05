@@ -8,8 +8,8 @@ My one data source is Kaggle (https://www.kaggle.com/eduardowoj/exoplanets-datab
 - Technical components  
 As mentioned before I will use my own CSV2JSON.py (csv to json) converter to make my data usable. Furthermore I will create a scatter plot, a bar chart and a pie chart (or something similar like a Radial Column chart or a Nightingale Rose chart).  
     
-All my graphs will be given the entire dataset to filter out the specific data needed. They all will use d3 and the d3-tip as well. Besides the functions for the bar - and Nightingale Rose chart will also need to be given the data needed for the scatter plot because out of these charts the scatter plot will be updated by clicking on parts of the graph.  
+	All my graphs will be given the entire dataset to filter out the specific data needed. They all will use d3 and the d3-tip as well. Besides the functions for the bar - and Nightingale Rose chart will also need to be given the data needed for the scatter plot because out of these charts the scatter plot will be updated by clicking on parts of the graph.  
   
-For my components I have chosen a dropdown menu and a checkbox. The dropdown menu will change the y-axis of my scatter plot from distance to the planet to the distance to the star of that planet. My checkbox will adjust the highlighted planets in my scatter plot. With as benchmark the orbital period of our earth.  
+	For my components I have chosen a dropdown menu and a checkbox. The dropdown menu will change the y-axis of my scatter plot from distance to the planet to the distance to the star of that planet. My checkbox will adjust the highlighted planets in my scatter plot. With as benchmark the orbital period of our earth.  
 
 - My plug-ins are d3, d3-tip and bootstrap.  
