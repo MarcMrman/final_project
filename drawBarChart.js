@@ -124,7 +124,6 @@ function drawBarChart(data) {
 	   .attr("fill", function(d){
             return "rgb(" + (Math.round(maxRgb - d)) + ", 0, 0)"
         })
-	   	//"#bdbdbd")
 	   .on("mouseover", barTip.show)
 	   .on("mouseout", barTip.hide)
 	   .on("click", function(d, i) {

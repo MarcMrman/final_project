@@ -17,5 +17,7 @@ window.onload = function() {
 
 		drawBarChart(response[0]);
 		drawScatterplotAxis(response[0], 1989);
+		//drawAreaDiagram(response[0]);
+		getAreaDiagramData(response[0], 2008)
 	};
 };

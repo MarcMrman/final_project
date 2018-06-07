@@ -1,12 +1,19 @@
-# day 1
+# day 1/2
 
 ## Done:
 - filtered data for missing values in essential data
-- made bar chart function
-- 
+- made bar chart
+- made scatter plot
+- made update function for scatter when clicked on bar
+- colored bar chart
+- implemented navigation bar
 
 ## To do:
-- make function for editing data
-- fix ticks on x-axis
+- fix ticks on x-axis bar chart
+- think of what to do with outliers scatter plot
+- gather needed data in usable datastructure for area diagram and finish it (started already)
+- link area diagram with scatter plot
+- color scatters in scatter plot
 
 ## Problems:
+- thinking of what way is easy to gather relevant data per year for methods usage
