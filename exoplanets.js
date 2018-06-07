@@ -5,16 +5,17 @@
 
 // function that is triggered when page is loaded
 window.onload = function() {
-
-	// data is loaded in as JSON
+	
+	// function to load data
 	d3.queue()
 	  .defer(d3.json, "data/exoplanets.json")
 	  .awaitAll(loadingPage);
-	
-	// function to load page after queuing
+
+	// function that loads page
 	function loadingPage(error, response) {
 		if (error) throw error;
-		
-		console.log(response[0])
+
+		drawBarChart(response[0]);
+		drawScatterplotAxis(response[0], 1989);
 	};
 };

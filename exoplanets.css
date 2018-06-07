@@ -10,3 +10,37 @@ h1 {
 	font-family: arial;
 	font-size: 10px;
 }
+
+p {
+  text-align: left;
+}
+
+#containerBarChart {
+  width: 600px;
+  margin-left: auto;
+  margin-right: 20px;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: white;
+  float: right;
+}
+
+#containerScatterplot {
+  width: 600px;
+  text-align: left;
+  margin-left: 20px;
+  margin-right: auto;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: white;
+  float: left;
+}
+
+#containerNightingale {
+  width: 600px;
+  margin-left: auto;
+  margin-right: 20px;
+  margin-top: 50px;
+  padding: 20px;
+  background-color: white;
+}

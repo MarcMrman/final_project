@@ -6,8 +6,8 @@ import csv
 import json
 
 #local file paths
-exolanetsCSV = "data/exoplanets.csv"
-exoplanetsJSON = "data/exoplanets.json"
+exolanetsCSV = "../data/exoplanets.csv"
+exoplanetsJSON = "../data/exoplanets.json"
 
 # function to convert a CSV file into JSON
 def conversion (infile, outfile):
