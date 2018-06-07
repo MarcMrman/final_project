@@ -5,8 +5,8 @@
 - made bar chart
 - made scatter plot
 - made update function for scatter when clicked on bar
-- colored bar chart
-- implemented navigation bar
+- colored bar chart, i colored it depending on amount of findings per year to better clarify the differences. 
+- implemented navigation bar, this way it seems like a real webpage. Also not all the text and graphs are together, which makes te website more user friendly. 
 
 ## To do:
 - fix ticks on x-axis bar chart
