@@ -1,6 +1,6 @@
 # Final project on Exoplanets  
 
-<a href = "https://github.com/MarcMrman/final_project/exoplanets.html"> Exoplanets page </a> <br>
+<a href = "https://marcmrman.github.io/final_project/exoplanets.html"> Exoplanets page </a> <br>
 Marc Moorman  
 10769781
 
