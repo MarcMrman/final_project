@@ -2,6 +2,8 @@
 
 Marc Moorman  
 10769781  
+
+https://MarcMrman.github.io/final_project/exoplanets.html (github pag werkt nog niet)
 <a href="https://marcmrman.github.io/dataprocessing/">My pages</a>
 
 **Summary**  

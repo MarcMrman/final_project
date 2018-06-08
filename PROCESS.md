@@ -1,4 +1,4 @@
-# day 1/2
+# 07-06-2018
 
 ## Done:
 - filtered data for missing values in essential data
