@@ -2,7 +2,7 @@
 
 Marc Moorman  
 10769781  
-<a href="index.html">My pages</a>
+<a href="https://marcmrman.github.io/dataprocessing/">My pages</a>
 
 **Summary**  
 This webpage is a visualization on characteristics of exoplanets found in the last couple of decades. It is meant to inform people on methods of discovery and planet specific characteristics per year. 
