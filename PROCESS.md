@@ -17,3 +17,5 @@
 
 ## Problems:
 - thinking of what way is easy to gather relevant data per year for methods usage
+
+# day 3
