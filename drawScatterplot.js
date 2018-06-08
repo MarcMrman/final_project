@@ -68,10 +68,12 @@ function drawScatterplotAxis (data, year) {
 	// drawing axis
 	svgScatterplot.append("g")
 		.attr("class", "axis")
+		.attr("id", "x_axis")
 	    .attr("transform", "translate(0," + (height - bottomMargin) + ")")
 		.call(x_axis);
 	svgScatterplot.append("g")
 		.attr("class", "axis")
+		.attr("id", "y_axis")
 	    .attr("transform", "translate(" + leftMargin + ", 0)")
 		.call(y_axis);
 
@@ -93,6 +95,7 @@ function drawScatterplotAxis (data, year) {
 	    .text("Distance (in AU)");
 
 	drawScatters(data, year);
+	updateScatters(data, year);
 };
 
 // drawing the circles in the scatter plot
@@ -143,4 +146,14 @@ function updateScatters(data, year) {
 	d3.selectAll("#scatters").remove();
 
 	drawScatters(data, year);
+};
+
+function updateScatterAxis(data, year) {
+	
+	// updating y axis when clicked on
+	document.getElementById("stars").onclick = function() {
+		d3.select("#y_axis").remove();
+
+		//drawScatterplotAxis(data, year)
+	};
 };

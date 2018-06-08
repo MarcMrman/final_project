@@ -18,4 +18,15 @@
 ## Problems:
 - thinking of what way is easy to gather relevant data per year for methods usage
 
-# day 3
+# 08-06-2018
+
+## Done:
+- created a button
+
+## To do:
+- Transition scatters when updated
+- find variables for size of scatters and colors.
+- link button to update function y axis
+
+## Problems:
+- Linking button to function to update one axis. Might have to update both the axis, not just the y axis. Look if axis can get id's

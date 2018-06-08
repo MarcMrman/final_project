@@ -118,13 +118,14 @@ function getAreaDiagramData(data, year) {
 	//console.log(methods)
 
 	sortedMethods = methods.sort();
+	sortedMethods.unshift("null")
 	console.log(sortedMethods)
 
 	// looking for amount of findings per year
 	var methodsUsed = [];	
 	var count = 0;
 	var cursor = null;
-	for (var i = 0; i < sortedMethods.length; i ++) {
+	for (var i = 0; i < sortedMethods.length + 1; i ++) {
 
 		if (sortedMethods[i] != cursor) {
 			methodsUsed.push(sortedMethods[i] + ":" + count);
