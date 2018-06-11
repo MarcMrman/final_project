@@ -36,10 +36,10 @@ p {
   float: left;
 }
 
-#containerNightingale {
+#containerAreaDiagram {
   width: 600px;
-  margin-left: auto;
-  margin-right: 20px;
+  margin-left: 20px;
+  margin-right: auto;
   margin-top: 50px;
   padding: 20px;
   background-color: white;

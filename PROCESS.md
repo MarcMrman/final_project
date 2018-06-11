@@ -30,3 +30,17 @@
 
 ## Problems:
 - Linking button to function to update one axis. Might have to update both the axis, not just the y axis. Look if axis can get id's
+
+# 11-06-2018
+
+## Done:
+- Started working on polar area diagram
+- started y axis info update
+
+## To do:
+
+
+## Problems:
+- linking data to my polar area diagram. 
+- i am not sure if the way my scatter plot function is made now i can seperately update my y-axis. 
+- draw scatters reads planetsyear[i] as [object object]

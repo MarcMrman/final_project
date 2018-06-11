@@ -13,7 +13,6 @@ function getBarData(data) {
 
 	// collecting years for axis
 	var years = [];
-	var yearsFound = [null];
 	for (var i = 0; i < data.data.length; i ++) {
 
 		var year = data.data[i]["discovered"];
@@ -23,6 +22,7 @@ function getBarData(data) {
 	sortedYears = years.sort();
 	
 	// ticks for x axis
+	var yearsFound = [null];
 	for (var i = 0; i < sortedYears.length; i ++) {
 		if (years[i] != years[i + 1]) {
 			yearsFound.push(years[i]);
@@ -45,6 +45,9 @@ function getBarData(data) {
 			count += 1;
 		}
 	}
+	//console.log(sortedYears)
+	//console.log(years)
+	//console.log(findingsPY)
 
 	return [years, findingsPY, yearsFound]
 };

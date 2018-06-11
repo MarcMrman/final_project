@@ -16,8 +16,8 @@ window.onload = function() {
 		if (error) throw error;
 
 		drawBarChart(response[0]);
-		drawScatterplotAxis(response[0], 1989);
-		//drawAreaDiagram(response[0]);
-		// getAreaDiagramData(response[0], 2008)
+		drawScatterplotAxis(response[0], "planet", 1989);
+		//pieChart(response[0], 2008);
+		//getAreaDiagramData(response[0], 2004)
 	};
 };

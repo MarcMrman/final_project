@@ -13,10 +13,10 @@
 var svgScatterplot;
 var scaleXScatter;
 var scaleYScatter;
+var distance;
 
 // put together the planets found per year with names/mass/distance (star and planet itself)
 function getScatterData (data, year) {
-	
 	var planets = [];
 
 	for (var i = 0; i < data.data.length; i ++) {
@@ -28,7 +28,7 @@ function getScatterData (data, year) {
 };
 
 // drawing axis of scatter plot
-function drawScatterplotAxis (data, year) {
+function drawScatterplotAxis (data, topic, year) {
 
 	// characteristics for SVG element
 	var width = 500;
@@ -94,13 +94,21 @@ function drawScatterplotAxis (data, year) {
 	    .style("text-anchor", "middle")
 	    .text("Distance (in AU)");
 
-	drawScatters(data, year);
-	updateScatters(data, year);
+	drawScatters(data, topic, year);
+	updateScatters(data, topic, year);
+	updateScatterAxis(data, year);
 };
 
 // drawing the circles in the scatter plot
-function drawScatters(data, year) {
+function drawScatters(data, topic, year) {
     
+    if(topic == "planet") {
+    	distance = "[\"angular_distance\"]";
+    }
+    // else {
+    // 	distance = "[\"star_distance\"]"
+    // }
+
     // retrieve data from function
 	var planetsYear = getScatterData(data, year);
 
@@ -110,9 +118,11 @@ function drawScatters(data, year) {
 			    .offset([-20, 0]).html(function(d, i) {
 	 	    		return "<strong>Planet:</strong> <span style='color:black'>" + planetsYear[i]["name"] + "</span>" + "</br>" +
 	 	    		"<strong>Mass:</strong> <span style='color:black'>" + planetsYear[i]["mass"] + "</span>" + "</br>" +
-	 	    		"<strong>Distance:</strong> <span style='color:black'>" + planetsYear[i]["angular_distance"] + "</span>" });
+	 	    		"<strong>Distance:</strong> <span style='color:black'>" + planetsYear[i] + distance + "</span>" });
 	svgScatterplot.call(scatterTip);
 
+
+	console.log(planetsYear[0]["angular_distance"])
     // creating scatters
     svgScatterplot.selectAll("circle")
 	   .data(planetsYear)
@@ -121,10 +131,12 @@ function drawScatters(data, year) {
 	   .attr("class", "circle")
 	   .attr("id", "scatters")
 	   .attr("cx", function(d, i){
+	   		console.log(planetsYear[i]["mass"])
 	   		return scaleXScatter(planetsYear[i]["mass"]);
 	   })
 		.attr("cy", function(d, i){
-	   		return scaleYScatter(planetsYear[i]["angular_distance"]);
+	   		console.log(planetsYear[i] + distance)
+	   		return scaleYScatter(planetsYear[i] + distance);
 	   	})
 		.attr("r", function(d, i){
 			return (planetsYear[i]["mass"]);
@@ -141,19 +153,21 @@ function drawScatters(data, year) {
 };
 
 // update function for the circles in scatter plot
-function updateScatters(data, year) {
+function updateScatters(data, topic, year) {
 
 	d3.selectAll("#scatters").remove();
 
-	drawScatters(data, year);
+	drawScatters(data, topic, year);
 };
 
 function updateScatterAxis(data, year) {
 	
 	// updating y axis when clicked on
 	document.getElementById("stars").onclick = function() {
-		d3.select("#y_axis").remove();
+		//d3.select("#y_axis").remove();
+		d3.selectAll("#scatters").remove();
 
-		//drawScatterplotAxis(data, year)
+		//drawScatters(data, "stars", year);
+		// drawScatterplotAxis();
 	};
 };
