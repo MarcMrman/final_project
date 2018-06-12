@@ -8,6 +8,9 @@
 // * 2018 in bar chart zetten ook
 // * ticks (jaartallen) op x as nog zetten
 
+// variable to keep track of last button pressed
+var trackButton;
+
 // function to gather data fit for the bar chart
 function getBarData(data) {
 
@@ -54,6 +57,17 @@ function getBarData(data) {
 
 // function to draw a bar chart
 function drawBarChart(data) {
+
+	// keeping track of button pressed for update per year function
+	document.getElementById("star").click = function(){
+		console.log("in get element star track butn")
+		trackButton = "star";
+	}
+	document.getElementById("planets").click = function(){
+		console.log("in get element star track butn")
+		trackButton = "planets";
+	}
+	console.log("Trackbutton:", trackButton)
 
 	// retrieving data from function
 	var years = getBarData(data)[0]
@@ -102,7 +116,7 @@ function drawBarChart(data) {
 	var barTip = d3.tip()
 		.attr("class", "d3-tip")
 	    .offset([-20, 0]).html(function(d, i) {
-    		return "<strong>Year:</strong> <span style='color:black'>" + yearsFound[i] + "</span>" + "</br>" +
+    		return "<strong>Year:</strong> <span style='color:black'>" + yearsFound[i] + "</span>" + "<br>" +
 			"<strong>Discoveries:</strong> <span style='color:black'>" + findingsPY[i] + "</span>" + "<br>" });
 	svgBarChart.call(barTip);
 
@@ -130,7 +144,14 @@ function drawBarChart(data) {
 	   .on("mouseover", barTip.show)
 	   .on("mouseout", barTip.hide)
 	   .on("click", function(d, i) {
-			updateScatters(data, yearsFound[i])
+			if (trackButton = "star"){
+				console.log("track star")
+				updateScatters(data, yearsFound[i], "star");
+			}
+			else if (trackButton = "planet"){
+				console.log("track planet")
+				updateScatters(data, yearsFound[i], "planets");
+			}
 		});
 
 	// drawing x axis

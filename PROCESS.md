@@ -35,7 +35,7 @@
 
 ## Done:
 - Started working on polar area diagram
-- started y axis info update
+- started y axis info update, using "planet" for tipic to make the code use ["angular_distance"] instead of ["star_distance"]
 
 ## To do:
 
@@ -44,3 +44,15 @@
 - linking data to my polar area diagram. 
 - i am not sure if the way my scatter plot function is made now i can seperately update my y-axis. 
 - draw scatters reads planetsyear[i] as [object object]
+
+# 12-06-2018
+## Done:
+- axis updating per year for scatter plot
+- graph update on different subject
+
+## To do:
+- thinking of what to do with outliers on scatter plot
+
+## Problems: 
+- outliers in data make the axis disporportianate
+- clicking of different years when swithced from topic

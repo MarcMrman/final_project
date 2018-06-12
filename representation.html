@@ -25,10 +25,7 @@
 		<script src="exoplanets.js"></script>
 	</head>
 	<body>
-		<h1>Marc Moorman <br>
-		10769781 <br>
-		Data source: <br>
-		<a href="https://www.kaggle.com/eduardowoj/exoplanets-database/data">Exoplanets</a><br>
+		
 
 		<!-- implementing a navigation bar -->
 		<nav class="navbar navbar-inverse">
@@ -41,17 +38,23 @@
 		      <li><a href="story.html">Story</a></li>
 		      <li class="active"><a href="#">Graphical representation</a></li>
 		    </ul>
+			    <h1>Marc Moorman <br>
+					10769781 <br>
+					Data source: <br>
+					<a href="https://www.kaggle.com/eduardowoj/exoplanets-database/data">Exoplanets</a><br>
 		  </div>
 		</nav>
+		
 		<!-- implementing dropdown menu -->
 		<div class="dropdown">
 		  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Distance to ...
 		  </button>
 			  <ul class="dropdown-menu">
 			  	<li class="dropdown-item" id="planets">planet</li>
-				<li class="dropdown-item" id="stars">planets' star</li>
+				<li class="dropdown-item" id="star">planets' star</li>
 		</ul>
-		</div>		
+		</div>	
+		
 		<!-- implementing containers for different visualizations -->
 		<div id="containerBarChart">
 			<h4>Development of Exoplanet discovery over the years</h4>
@@ -64,3 +67,5 @@
 		</div>
 	</body>
 </html>
+
+<!-- onclick="updateScatterAxis(data, 1989)" -->
