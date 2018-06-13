@@ -6,10 +6,8 @@
 
 // TODO:
 // * 2018 in bar chart zetten ook
-// * ticks (jaartallen) op x as nog zetten
 
 // variable to keep track of last button pressed
-var trackButton;
 
 // function to gather data fit for the bar chart
 function getBarData(data) {
@@ -29,8 +27,8 @@ function getBarData(data) {
 	for (var i = 0; i < sortedYears.length; i ++) {
 		if (years[i] != years[i + 1]) {
 			yearsFound.push(years[i]);
-		} 
-	}
+		};
+	};
 
 	// looking for amount of findings per year
 	var findingsPY = [];	
@@ -52,27 +50,23 @@ function getBarData(data) {
 	//console.log(years)
 	//console.log(findingsPY)
 
-	return [years, findingsPY, yearsFound]
+	return [years, findingsPY, yearsFound.slice(1,23)];
 };
 
 // function to draw a bar chart
 function drawBarChart(data) {
-
-	// keeping track of button pressed for update per year function
-	document.getElementById("star").click = function(){
-		console.log("in get element star track butn")
-		trackButton = "star";
-	}
-	document.getElementById("planets").click = function(){
-		console.log("in get element star track butn")
-		trackButton = "planets";
-	}
-	console.log("Trackbutton:", trackButton)
-
+	
+	// variable to keep track of last button pressed
+	//var trackButton = "planets";
+	//trackButton = getTopic()
+	console.log("topic in bar script", topic)
 	// retrieving data from function
-	var years = getBarData(data)[0]
-	var findingsPY = getBarData(data)[1]
-	var yearsFound = getBarData(data)[2]
+	var years = getBarData(data)[0];
+	var findingsPY = getBarData(data)[1];
+	var yearsFound = getBarData(data)[2];
+
+	var x = getTopic();
+	console.log("x in draw bar chart:", x)
 
 	// characteristics for SVG element
 	var width = 600;
@@ -80,13 +74,13 @@ function drawBarChart(data) {
 	var barPadding = 5;
 	var leftMargin = 50;
 	var bottomMargin = 50;
-	var topMargin = 10
+	var topMargin = 10;
 	var rightMargin = 35;
 	var maxRgb = 255;
 
 	// finding mininimum and maximum values
-	var minX = Math.min.apply(Math, years);
-	var maxX = Math.max.apply(Math, years);
+	var minX = Math.min.apply(Math, yearsFound);
+	var maxX = Math.max.apply(Math, yearsFound);
 	var maxY = Math.max.apply(Math, findingsPY);
 
 	// scaling for the axis
@@ -100,7 +94,7 @@ function drawBarChart(data) {
 	// axis characteristics
 	var x_axis = d3.axisBottom()
 		.scale(scaleXBar)
-		.ticks(0)			
+		.ticks(22)			
 	var y_axis = d3.axisLeft()
 		//.ticks(5)
 		.scale(scaleYBar);
@@ -139,26 +133,33 @@ function drawBarChart(data) {
 	   		return findingsPY[i] * 2.5;
 	   })
 	   .attr("fill", function(d){
-            return "rgb(" + (Math.round(maxRgb - d)) + ", 0, 0)"
+            return "rgb(" + (Math.round(maxRgb - d)) + ", 0, 0)";
         })
 	   .on("mouseover", barTip.show)
 	   .on("mouseout", barTip.hide)
 	   .on("click", function(d, i) {
-			if (trackButton = "star"){
-				console.log("track star")
-				updateScatters(data, yearsFound[i], "star");
+	   		console.log("topic in clck:", topic)
+			if (topic == "planets"){
+				console.log("topic in planet if:", topic)
+				updateScatters(data, yearsFound[i], "planets", "all");
 			}
-			else if (trackButton = "planet"){
-				console.log("track planet")
-				updateScatters(data, yearsFound[i], "planets");
+			else {				
+				console.log("topic in star if:", topic)
+				updateScatters(data, yearsFound[i], "star", "all");
 			}
 		});
 
-	// drawing x axis
+	// drawing axis
 	svgBarChart.append("g")
 	    .attr("class", "axis")
 	    .attr("transform", "translate(0," + (height - bottomMargin) + ")")
-	    .call(x_axis);
+	    .call(x_axis)
+	    .selectAll("text")
+	    .attr("y", 0)
+	    .attr("x", 9)
+	    .attr("dy", ".35em")
+	    .attr("transform", "rotate(45)")
+	    .style("text-anchor", "start");
 	svgBarChart.append("g")
 		.attr("class", "axis")
 	    .attr("transform", "translate(" + leftMargin + ", 0)")
@@ -167,15 +168,15 @@ function drawBarChart(data) {
 	// axis labels
 	svgBarChart.append("text") 
 		.attr("class", "axisText")            
-	    .attr("transform", "translate(" + ( width / 2) + " ," + (height - bottomMargin + 20) + ")")
+	    .attr("transform", "translate(" + ( width / 2) + " ," + (height - bottomMargin + 40) + ")")
 	    .style("text-anchor", "middle")
 	    .text("Year");
 	svgBarChart.append("text")
      	.attr("class", "axisText")
 	    .attr("transform", "rotate(-90)")
-	    .attr("y", 20)
+	    .attr("y", 5)
 	    .attr("x", - (height / 2))
 	    .attr("dy", "1em")
 	    .style("text-anchor", "middle")
-	    .text("Amount of exoplanets found)");
+	    .text("Amount of exoplanets found");
 };

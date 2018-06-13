@@ -49,10 +49,24 @@
 ## Done:
 - axis updating per year for scatter plot
 - graph update on different subject
+- coloured scatters on eccentricity, sized them on radius (if available)
 
 ## To do:
 - thinking of what to do with outliers on scatter plot
+- put titles on scatter plots
 
 ## Problems: 
 - outliers in data make the axis disporportianate
 - clicking of different years when swithced from topic
+
+# 13-06-2018
+## Done:
+- title to scatter plot
+- button for highlighting planets
+- started with legend for scatter plot
+
+## To do:
+- buttons ipv checkbox
+
+## Problems:
+- checkbox/radio don't respond on onclick, only to onchange = "changeFunction". So can't put data throug it. 

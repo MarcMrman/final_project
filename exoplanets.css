@@ -16,6 +16,10 @@ p {
   text-align: left;
 }
 
+/*body {
+  background-color: #3182bd;
+}*/
+
 #containerBarChart {
   width: 600px;
   margin-left: auto;
@@ -50,7 +54,7 @@ p {
 .dropdown {
     position: absolute;
     display: inline-block;
-    left: 10%;
+    left: 30%;
     top: 50%;
     /*float: inherit;*/
 }
@@ -65,3 +69,7 @@ p {
     z-index: 1;
     right: 0;
 }
+
+/*.btn-group {
+  color: 
+}*/
