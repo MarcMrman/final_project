@@ -86,8 +86,16 @@ function drawAreaPolarDiagram(data, year) {
     	.attr("fill", function (d, i){ 
     		return colorScale(methodsUsed[i]); 
     	})
-    	.on("click", function(d, i) {
-    		
+    	.on("mouseenter", function(d, i) {
+    		console.log("in mouseenter")
+    		var method = planetsYear[i]["detection_type"];
+    		console.log("detection type planet", method)
+    		console.log("detection on area gram", methodsUsed[i])
+    		if (method == methodsUsed[i]) {
+    			console.log("in if statement")
+    			d3.select("svgScatterplot")
+    			.selectAll(planetsYear)
+    			.style("fill", "#000000");}
     	})
 		.on("mouseover", polarTip.show)
 		.on("mouseout", polarTip.hide);

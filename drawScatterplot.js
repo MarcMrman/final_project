@@ -10,6 +10,8 @@
 // * ra en dec (long/lang)
 
 var topic;
+var planetsYear;
+var svgScatterplot;
 
 // put together the planets found per year with names/mass/distance (star and planet itself)
 function getScatterData (data, year) {
@@ -44,8 +46,8 @@ function drawScatterplot(data, year, topic, highlight) {
 	var rightMargin = 35;
 
 	// retrieve data from function
-	var planetsYear = getScatterData(data, year);
-	//console.log(planetsYear)
+	planetsYear = getScatterData(data, year);
+	console.log(planetsYear)
 
 	// statements to determine scale y axis
 	if (topic == "planets") {
@@ -75,7 +77,7 @@ function drawScatterplot(data, year, topic, highlight) {
 		.scale(scaleYScatter);
 
 	// create initial svg element
-  	var svgScatterplot = d3.select("#containerScatterplot")
+  	svgScatterplot = d3.select("#containerScatterplot")
 	    .append("svg")
 	    .attr("id", "scatterplot")
 	    .attr("width", width)

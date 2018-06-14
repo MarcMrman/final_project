@@ -74,7 +74,7 @@
 # 14-06-2018
 ## Done:
 - legend in scatter plot
-- made polar area diagram
+- made polar area diagram w/ interactivity
 
 ## To do:
 
