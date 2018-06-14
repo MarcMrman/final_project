@@ -1,173 +1,111 @@
 /** 
 * Marc Moorman
 * 10769781
-* file containing the function to draw a nightingale-rose chart
+* file containing the function to draw a polar area diagram
 **/
 
-// function drawAreaDiagram(data, year) {
+// function to draw the area polar diagram
+function drawAreaPolarDiagram(data, year) {
 
-// 	console.log(data)
+	// retrieving needed data for diagram
+	var findingsPerMethod = getAreaDiagramData(data, year)[0];
+	var methodsUsed = getAreaDiagramData(data, year)[1];
+	// console.log(findingsPerMethod)
+	// console.log(methodsUsed)
 
-// 	// get the needed data
-// 	var findingsPerMethod = getAreaDiagramData(data, year)[0].slice(1,6)
-// 	var methodsUsed = getAreaDiagramData(data, year)[1].slice(0,5)
-// 	console.log(findingsPerMethod)
-// 	console.log(methodsUsed)
-	
-// 	// set svg properties
-// 	var outerWidth = 960;
-// 	var outerHeight = 500;
-// 	var margin = { left: 11, top: 75, right: 377, bottom: 88 };
-// 	var radiusMax = 231;
+	// characteristics for svg and diagram
+	var outerWidth = 960;
+    var outerHeight = 500;
+    var margin = { left: 11, top: 75, right: 377, bottom: 88 };
+    var radiusMax = 231;
 
-// 	var xColumn = "name";
+    // setting characteristics for inside the diagram
+    var innerWidth  = outerWidth  - margin.left - margin.right;
+    var innerHeight = outerHeight - margin.top  - margin.bottom;
 
-// 	var colorColumn = "religion";
-// 	var radiusColumn = "population";
+    // creating svg element
+    var svgAreaDiagram = d3.select("#containerAreaDiagram")
+    	.append("svg")
+    	.attr("id", "svgAreaDiagram")
+        .attr("width",  outerWidth)
+        .attr("height", outerHeight);
+    var g = svgAreaDiagram.append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// 	var innerWidth  = outerWidth  - margin.left - margin.right;
-// 	var innerHeight = outerHeight - margin.top  - margin.bottom;
+    // g #2 for chart
+    var pieG = g.append("g");
+    // g #3 for legend
+    var colorLegendG = g.append("g")
+    	.attr("class", "color-legend")
+        .attr("transform", "translate(595, -36)");
 
-// 	// create svg
-// 	var svgAreaDiagram = d3.select("#containerAreaDiagram")
-// 		.append("svg")
-// 		.attr("width",  outerWidth)
-// 		.attr("height", outerHeight);
+    // scaling for the g elements
+    var radiusScale = d3.scaleSqrt().range([0, radiusMax]);
+    var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
 
-// 	var pie = d3.arc().value().outerRadius(function(findingsPerMethod) { 
-//     		return radiusScale(findingsPerMethod[radiusColumn]);
-//     })
+    // var for legend colors
+    var colorLegend = d3.legendColor()
+        .scale(colorScale)
+        .shapePadding(3)
+        .shapeWidth(40)
+        .shapeHeight(40)
+        .labelOffset(4);
 
-// 	var g = svgAreaDiagram.append("g")
-// 		.data()
-// 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    // creating info window
+    var polarTip = d3.tip()
+		.attr("class", "d3-tip")
+    	.offset([0, 20]).html(function(d, i) {
+    		return "<strong>Method:</strong> <span style='color:black'>" + methodsUsed[i] + "</span>" + "<br>" +
+    		"<strong>Found:</strong> <span style='color:black'>" + findingsPerMethod[i] + "</span>" + "<br>"});
+	svgAreaDiagram.call(polarTip);
 
-// 	var xAxisG = g.append("g")
-// 		.attr("class", "x axis")
-// 		.attr("transform", "translate(0," + innerHeight + ")");
+    // setting domain for g elements
+    radiusScale.domain([0, d3.max(findingsPerMethod)]);
+    colorScale.domain(methodsUsed);
 
-// 	var pieG = g.append("g");
-
-// 	var colorLegendG = g.append("g")
-// 		.attr("class", "color-legend")
-// 		.attr("transform", "translate(595, -36)");
-
-// 	var xScale = d3.scaleBand()
-// 		.rangeRound([0, innerWidth]);
-
-// 	var radiusScale = d3.scaleSqrt()
-// 		.range([0, radiusMax]);
-
-// 	var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
-
-// 	var xAxis = d3.axisBottom()
-// 		.scale(xScale);
-// 	    //.outerTickSize(0);
-
-// 	//render(findingsPerMethod, methodsUsed)
-//     var pie = d3.pie();
-//     //var arc = d3.arc();
-
-// 	var colorLegend = d3.legendColor()
-// 	    .scale(colorScale)
-// 	    .shapePadding(3)
-// 	    .shapeWidth(40)
-// 	    .shapeHeight(40)
-// 	    .labelOffset(4);
-
-//     xScale.domain(findingsPerMethod.map( function (d){ return d[xColumn]; })); 
-//     radiusScale.domain([0, d3.max(findingsPerMethod, function (d){ return d[radiusColumn]; })]);
-//     colorScale.domain(methodsUsed.map(function (d){ return d[colorColumn]; }));
-
-//     // making all the angles of the slices the same 
-//     pie.value(function (){ 
-//     		return 1; 
-//     	});
-//     // varying in the heights of the slices, making this a polar area diagram
-//     //arc.outerRadius(function(findingsPerMethod) { 
-//     //		return radiusScale(findingsPerMethod[radiusColumn]);
-//    // });
-
-//     var pieData = arc(findingsPerMethod);
-
-//     // adding slices to svg
-//     var slices = pieG.selectAll("path");
+    // pie returns 1 to make it constant
+    var pie = d3.pie().value(function (){ return 1; });
     
-//     // console.log(d3.pie(findingsPerMethod).length)
-//     // console.log(typeof(findingsPerMethod))
+    // here the heights of the chart elements will differ, and making it a polar are diagram
+   	var arc = d3.arc().outerRadius(function(d) { 
+    	return radiusScale(d.data);
+    });
+    arc.innerRadius(function(d){
+    	return 0;
+    });
     
-//     slices.data(pieData)
-//     	.enter()
-//     	.append("path")
-//     	.attr("d", arc)
-//     	.attr("fill", function (d){ 
-//     		return colorScale(d[colorColumn]); 
-//     	});
-//     slices.exit().remove();
+    // position g's for chart elements
+	pieG.attr("transform", "translate(" + innerWidth / 2 + "," + innerHeight / 2 + ")");
 
-//     xAxisG.call(xAxis);
-//     colorLegendG.call(colorLegend);
-// };
-
-
-function pieChart(data, year){
-	var findingsPerMethod = getAreaDiagramData(data, year)[0]
-	var methodsUsed = getAreaDiagramData(data, year)[1]
-	
-	var svg = d3.select("containerAreaDiagrami"),
-	    width = +svg.attr("width"),
-	    height = +svg.attr("height"),
-	    radius = Math.min(width, height) / 2,
-	    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-	var svgAreaDiagram = d3.select("#containerAreaDiagram")
-		.append("svg")
-		.attr("width",  outerWidth)
-		.attr("height", outerHeight);
-
-	var color = d3.scaleOrdinal(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
-
-	var pie = d3.pie()
-	    .sort(null)
-	    .value(function(d) { return 1; });
-
-	var path = d3.arc()
-	    .outerRadius(function(findingsPerMethod) { 
-    		return radiusScale(findingsPerMethod[radiusColumn]);
+	// creating paths in diagram
+    var slices = pieG.selectAll("path")
+    	.data(pie(findingsPerMethod))
+    	.enter()
+    	.append("path")
+		.attr("d", arc)
+    	.attr("fill", function (d, i){ 
+    		return colorScale(methodsUsed[i]); 
     	})
+    	.on("click", function(d, i) {
+    		
+    	})
+		.on("mouseover", polarTip.show)
+		.on("mouseout", polarTip.hide);
+    slices.exit().remove();
 
-	var label = d3.arc()
-	    .outerRadius(radius - 40)
-	    .innerRadius(radius - 40);
-
-	var arc = g.selectAll(".arc")
-	    .data(pie(findingsPerMethod))
-	    .enter().append("g")
-	      .attr("class", "arc");
-
-	arc.append("path")
-	      .attr("d", path)
-	      .attr("fill", function(d) { return color(d.data.age); });
-
-	arc.append("text")
-	      .attr("transform", function(d) { return "translate(" + label.centroid(d) + ")"; })
-	      .attr("dy", "0.35em")
-	      .text(function(d) { return d.data.age; });
+    colorLegendG.call(colorLegend);
 };
-
-
-
 
 
 // retrieve data for year clicked on
 function getAreaDiagramData(data, year) {
-		
+
 	var methods = [];
 
+	// filetering out needed data
 	for (var i = 0; i < data.data.length; i ++) {
 		if (data.data[i]["discovered"] == year) {
 			methods.push(data.data[i]["detection_type"]);
-			//console.log(data.data[i]["detection_type"])
 		};
 	};
 
@@ -180,8 +118,9 @@ function getAreaDiagramData(data, year) {
 	var cursor = null;
 	for (var i = 0; i < sortedMethods.length + 1; i ++) {
 
+		// counting duplicate in array for amount
 		if (sortedMethods[i] != cursor) {
-			methodsUsed.push(sortedMethods[i])
+			methodsUsed.push(sortedMethods[i]);
 			findingsPerMethod.push(count);
 			cursor = sortedMethods[i];
 			count = 1;
@@ -192,6 +131,12 @@ function getAreaDiagramData(data, year) {
 		}
 	}
 
-	//console.log(methodsUsed)
-	return [findingsPerMethod, methodsUsed];
+	return [findingsPerMethod.slice(1,), methodsUsed.splice(0, methodsUsed.length - 1)];
+};
+
+// update polar area diagram when clicked on bar chart
+function updateAreaDiagram(data, year) {
+
+	d3.selectAll("#svgAreaDiagram").remove();
+	drawAreaPolarDiagram(data, year);
 };

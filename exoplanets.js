@@ -17,7 +17,7 @@ window.onload = function() {
 
 		drawBarChart(response[0]);
 		drawScatterplot(response[0], 1989, "planets", "all");
-		//pieChart(response[0], 2008);
-		//getAreaDiagramData(response[0], 2004)
+		drawAreaPolarDiagram(response[0], 2008);
+		//getAreaDiagramData(response[0], 2008)
 	};
 };

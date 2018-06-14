@@ -6,8 +6,7 @@
 
 // TODO:
 // * 2018 in bar chart zetten ook
-
-// variable to keep track of last button pressed
+// * variable to keep track of last button pressed
 
 // function to gather data fit for the bar chart
 function getBarData(data) {
@@ -59,14 +58,14 @@ function drawBarChart(data) {
 	// variable to keep track of last button pressed
 	//var trackButton = "planets";
 	//trackButton = getTopic()
-	console.log("topic in bar script", topic)
+	// console.log("topic in bar script", topic)
 	// retrieving data from function
 	var years = getBarData(data)[0];
 	var findingsPY = getBarData(data)[1];
 	var yearsFound = getBarData(data)[2];
 
-	var x = getTopic();
-	console.log("x in draw bar chart:", x)
+	// var x = getTopic();
+	// console.log("x in draw bar chart:", x)
 
 	// characteristics for SVG element
 	var width = 600;
@@ -138,13 +137,14 @@ function drawBarChart(data) {
 	   .on("mouseover", barTip.show)
 	   .on("mouseout", barTip.hide)
 	   .on("click", function(d, i) {
-	   		console.log("topic in clck:", topic)
+	   		//console.log("topic in clck:", topic)
+			updateAreaDiagram(data, yearsFound[i]);
 			if (topic == "planets"){
-				console.log("topic in planet if:", topic)
+				//console.log("topic in planet if:", topic)
 				updateScatters(data, yearsFound[i], "planets", "all");
 			}
 			else {				
-				console.log("topic in star if:", topic)
+				//console.log("topic in star if:", topic)
 				updateScatters(data, yearsFound[i], "star", "all");
 			}
 		});

@@ -70,3 +70,12 @@
 
 ## Problems:
 - checkbox/radio don't respond on onclick, only to onchange = "changeFunction". So can't put data throug it. 
+
+# 14-06-2018
+## Done:
+- legend in scatter plot
+- made polar area diagram
+
+## To do:
+
+## Problems: 

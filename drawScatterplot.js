@@ -6,10 +6,8 @@
 
 // TODO:
 // * keuze over outliers
-// * legenda
 // * update per jaar na switchen variabele
 // * ra en dec (long/lang)
-// * BUTTONS IPV CHECKBOX NOG AANPASSEN IN PROPOSAL
 
 var topic;
 
@@ -32,7 +30,7 @@ function getScatterData (data, year) {
 // function that draws scatter plot
 function drawScatterplot(data, year, topic, highlight) {
 	
-	console.log("topic in draw scatterplot:", topic)
+	//console.log("topic in draw scatterplot:", topic)
 	//console.log(year)
 	//console.log(highlight)
 
@@ -44,13 +42,10 @@ function drawScatterplot(data, year, topic, highlight) {
 	var bottomMargin = 50;
 	var topMargin = 10
 	var rightMargin = 35;
-	// var domain;
-	// var distance;
-	// var title; 
 
 	// retrieve data from function
 	var planetsYear = getScatterData(data, year);
-	console.log(planetsYear)
+	//console.log(planetsYear)
 
 	// statements to determine scale y axis
 	if (topic == "planets") {
@@ -124,8 +119,8 @@ function drawScatterplot(data, year, topic, highlight) {
     var scatterTip = d3.tip()
 		.attr("class", "d3-tip")
     	.offset([-20, 0]).html(function(d, i) {
-    		return "<strong>Planet:</strong> <span style='color:black'>" + planetsYear[i]["name"] + "</span>" + "</br>" +
-    		"<strong>Mass:</strong> <span style='color:black'>" + planetsYear[i]["mass"] + "</span>" + "</br>" +
+    		return "<strong>Planet:</strong> <span style='color:black'>" + planetsYear[i]["name"] + "</span>" + "<br>" +
+    		"<strong>Mass:</strong> <span style='color:black'>" + planetsYear[i]["mass"] + "</span>" + "<br>" +
     		"<strong>Distance:</strong> <span style='color:black'>" + planetsYear[i][distance] + "</span>" });
 	svgScatterplot.call(scatterTip);
 
@@ -163,7 +158,7 @@ function drawScatterplot(data, year, topic, highlight) {
 				return "#31a354";
 			}
 			else {
-				return "#ffffff"
+				return "#000000"
 			}
 		})
 		.style("stroke-width", function(d, i){
@@ -174,7 +169,7 @@ function drawScatterplot(data, year, topic, highlight) {
 				return 2;
 			}
 			else {
-				return 0;
+				return 1;
 			}
 		})
 		.on("mouseover", scatterTip.show)
@@ -184,7 +179,7 @@ function drawScatterplot(data, year, topic, highlight) {
 	// 	.duration(5000)
 
 	// put neccesary information to update function
-	//addLegend(svgScatterplot, width, height);
+	addLegend(svgScatterplot);
 	updateScatterAxis(data, year, topic, highlight);
 	highlightPlanets(data, year, topic);
 };
@@ -206,7 +201,7 @@ function updateScatterAxis(data, year, topic, highlight){
 	document.getElementById("star").onclick = function(){
 		d3.selectAll("#scatterplot").remove();
 		topic = "star";
-		console.log("drawSaccter: topic in click by id stars:", topic)
+		//console.log("drawSaccter: topic in click by id stars:", topic)
 		year = 1989;
 		updateScatters(data, year, topic, "all");
 	};
@@ -215,7 +210,7 @@ function updateScatterAxis(data, year, topic, highlight){
 	document.getElementById("planets").onclick = function(){
 		d3.selectAll("#scatterplot").remove();
 		topic = "planets";
-		console.log("drawSaccter: topic in click by id planets:", topic)
+		//console.log("drawSaccter: topic in click by id planets:", topic)
 		year = 1989;
 		updateScatters(data, year, topic, "all");
 	};
@@ -241,57 +236,64 @@ function highlightPlanets(data, year, topic) {
 
 };
 
-// function addLegend(svgScatterplot){
+function addLegend(svgScatterplot){
 	
-// 	// creating svg for legend
-// 	var widthLegend = 200;
-// 	var heightLegend = 100;
+	d3.selectAll("#legend").remove();
 
-// 	var legend = d3.select("#containerScatterplot")
-// 		.append("svg")
-// 		.attr("id", "legend")
-// 		.attr("width", widthLegend)
-// 		.attr("height", heightLegend);
-// 	//svgScatterplot.selectAll("legend")
+	// creating svg for legend
+	var widthLegend = 200;
+	var heightLegend = 100;
 
-// 	// drawing rectangles for legend
-// 	var two = [1, 2];
+	var legend = d3.select("#containerScatterplot")
+		.append("svg")
+		.attr("id", "legend")
+		.attr("width", widthLegend)
+		.attr("height", heightLegend);
+	//svgScatterplot.selectAll("legend")
 
-// 	legend.selectAll("rect")
-// 	  .data(two)
-// 	  .enter()
-// 	  .append("rect")
-// 	  .attr("class", "legend")
-//       .attr("y", function(d, i) {
-//       	return 10 + (i*30)
-//       }) //height / 2)
-//       .attr("x", 50)
-//       // function(d, i){
-//       // 	return width - 20;
-//       // }
-//       .attr("width", 20)
-//       .attr("height", 20)
-//       .style("fill", "red");
+	// drawing rectangles for legend
+	var two = [1, 2];
 
-//     // adding text to the legend
-// 	legend.append("text")
-// 		.attr("x", 50)
-// 	    .attr("y", function(d, i){
-// 	    	return 10 + (i*30)
-// 	    })
-// 	    .attr("dy", ".35em")
-// 	    .style("text-anchor", "end")
-// 	    .text("eccentricity below earth");
+	legend.selectAll("rect")
+	  .data(two)
+	  .enter()
+	  .append("rect")
+	  .attr("class", "legend")
+      .attr("y", function(d, i) {
+      	return 10 + (i*30)
+      }) //height / 2)
+      .attr("x", widthLegend - widthLegend + 10)
+      // function(d, i){
+      // 	return width - 20;
+      // }
+      .attr("width", 20)
+      .attr("height", 20)
+      .style("fill", function (d, i) {
+      	if (10 + (i * 30) == 10){
+      		return "#636363";
+      	}
+      	else {
+      		return "#e6550d";
+      	}
+      });
 
-// 	legend.append("text")
-// 		.attr("x", width - 140)
-// 	    .attr("y", (height / 2) + 10)
-// 	    .attr("dy", ".35em")
-// 	    .style("text-anchor", "end")
-// 	    .text("eccentricity above earth");
-// };
+    // adding text to the legend
+	legend.append("text")
+		.attr("x", 180)
+	    .attr("y", 10)
+	    .attr("dy", ".35em")
+	    .style("text-anchor", "end")
+	    .text("eccentricity below earth");
 
-function getTopic(){
-	console.log("topic in getTopic:", topic)
-	return topic
-}
+	legend.append("text")
+		.attr("x", 180)
+	    .attr("y", 30)
+	    .attr("dy", ".35em")
+	    .style("text-anchor", "end")
+	    .text("eccentricity above earth");
+};
+
+// function getTopic(){
+// 	console.log("topic in getTopic:", topic)
+// 	return topic
+// }
