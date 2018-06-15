@@ -14,10 +14,10 @@ function drawAreaPolarDiagram(data, year) {
 	// console.log(methodsUsed)
 
 	// characteristics for svg and diagram
-	var outerWidth = 960;
-    var outerHeight = 500;
-    var margin = { left: 11, top: 75, right: 377, bottom: 88 };
-    var radiusMax = 231;
+	var outerWidth = 500;
+    var outerHeight = 300;
+    var margin = { left: 11, top: 75, right: 100, bottom: 88 };
+    var radiusMax = 100;
 
     // setting characteristics for inside the diagram
     var innerWidth  = outerWidth  - margin.left - margin.right;
@@ -37,7 +37,7 @@ function drawAreaPolarDiagram(data, year) {
     // g #3 for legend
     var colorLegendG = g.append("g")
     	.attr("class", "color-legend")
-        .attr("transform", "translate(595, -36)");
+        .attr("transform", "translate(350, -36)");
 
     // scaling for the g elements
     var radiusScale = d3.scaleSqrt().range([0, radiusMax]);
@@ -47,8 +47,8 @@ function drawAreaPolarDiagram(data, year) {
     var colorLegend = d3.legendColor()
         .scale(colorScale)
         .shapePadding(3)
-        .shapeWidth(40)
-        .shapeHeight(40)
+        .shapeWidth(20)
+        .shapeHeight(20)
         .labelOffset(4);
 
     // creating info window
@@ -76,6 +76,13 @@ function drawAreaPolarDiagram(data, year) {
     
     // position g's for chart elements
 	pieG.attr("transform", "translate(" + innerWidth / 2 + "," + innerHeight / 2 + ")");
+
+	// append title to graph
+	svgAreaDiagram.append("text")
+		.attr("class", "title")
+	    .attr("y", 15)
+	    .attr("x", margin.left + 10)
+	    .text("Methods used to find planets in " + year);
 
 	// creating paths in diagram
     var slices = pieG.selectAll("path")

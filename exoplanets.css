@@ -17,14 +17,31 @@ p {
 }
 
 /*body {
-  background-color: #3182bd;
+  width: 1280px
 }*/
 
+.containerNavBar {
+  height: 50px;
+  width: 1280px;
+}
+
+  /*ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      width: 60px;
+  } 
+
+  li a {
+      display: block;
+      width: 60px;
+  }*/
+
 #containerBarChart {
-  width: 600px;
+  width: 500px;
   margin-left: auto;
-  margin-right: 20px;
-  margin-top: 50px;
+  margin-right: 50px;
+  /*margin-top: 50px;*/
   padding: 20px;
   background-color: white;
   float: right;
@@ -33,10 +50,10 @@ p {
 #containerScatterplot {
   width: 600px;
   text-align: left;
-  margin-left: 20px;
+  margin-left: 10px;
   margin-right: auto;
-  margin-top: 50px;
-  padding: 20px;
+  margin-top: 25px;
+  /*padding: 20px;*/
   background-color: white;
   float: left;
 }
@@ -48,6 +65,7 @@ p {
   margin-top: 50px;
   padding: 20px;
   background-color: white;
+  float: right;
 }
 
 /* dropdown menu make up */
@@ -69,7 +87,3 @@ p {
     z-index: 1;
     right: 0;
 }
-
-/*.btn-group {
-  color: 
-}*/

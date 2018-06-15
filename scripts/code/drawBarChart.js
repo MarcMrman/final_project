@@ -63,37 +63,36 @@ function drawBarChart(data) {
 	var years = getBarData(data)[0];
 	var findingsPY = getBarData(data)[1];
 	var yearsFound = getBarData(data)[2];
+	// console.log(yearsFound)
 
 	// var x = getTopic();
 	// console.log("x in draw bar chart:", x)
 
 	// characteristics for SVG element
-	var width = 600;
+	var width = 500;
 	var height = 400;
 	var barPadding = 5;
-	var leftMargin = 50;
-	var bottomMargin = 50;
-	var topMargin = 10;
-	var rightMargin = 35;
+	var margin = {left: 50, top: 10, right: 35, bottom: 50};
 	var maxRgb = 255;
 
 	// finding mininimum and maximum values
 	var minX = Math.min.apply(Math, yearsFound);
 	var maxX = Math.max.apply(Math, yearsFound);
 	var maxY = Math.max.apply(Math, findingsPY);
-
+	
 	// scaling for the axis
 	var scaleXBar = d3.scaleLinear()
  		.domain([minX, maxX])
- 		.range([leftMargin, width]);
+ 		.range([margin.left, width]);
 	var scaleYBar = d3.scaleLinear()
 		.domain([maxY * 1.10, 0])
-		.range([topMargin, height - bottomMargin]);
+		.range([margin.top, height - margin.bottom]);
 
 	// axis characteristics
 	var x_axis = d3.axisBottom()
 		.scale(scaleXBar)
-		.ticks(22)			
+		.ticks(22)
+		.tickFormat(d3.format("d"));		
 	var y_axis = d3.axisLeft()
 		//.ticks(5)
 		.scale(scaleYBar);
@@ -113,6 +112,13 @@ function drawBarChart(data) {
 			"<strong>Discoveries:</strong> <span style='color:black'>" + findingsPY[i] + "</span>" + "<br>" });
 	svgBarChart.call(barTip);
 
+	// append title to graph
+	svgBarChart.append("text")
+		.attr("class", "title")
+	    .attr("y", 15)
+	    .attr("x", margin.left + 10)
+	    .text("Development of Exoplanet discovery over the years");
+
 	// drawing bars in bar chart
 	svgBarChart.selectAll("rect")
 	   .data(findingsPY)
@@ -122,12 +128,12 @@ function drawBarChart(data) {
 	   // .attr("id", function(d, i){
 	   // 		return s})
 	   .attr("x", function(d, i){
-	   		return i * ((width - leftMargin) / findingsPY.length) + leftMargin;
+	   		return i * ((width - margin.left) / findingsPY.length) + margin.left;
 	   })
 	   .attr("y", function(d, i){
-	   		return height - bottomMargin - (findingsPY[i]  * 2.5);
+	   		return height - margin.bottom - (findingsPY[i]  * 2.5);
 	   })
-	   .attr("width", ((width - leftMargin) / findingsPY.length) - barPadding)
+	   .attr("width", ((width - margin.left) / findingsPY.length) - barPadding)
 	   .attr("height", function(d, i){
 	   		return findingsPY[i] * 2.5;
 	   })
@@ -152,7 +158,7 @@ function drawBarChart(data) {
 	// drawing axis
 	svgBarChart.append("g")
 	    .attr("class", "axis")
-	    .attr("transform", "translate(0," + (height - bottomMargin) + ")")
+	    .attr("transform", "translate(0," + (height - margin.bottom) + ")")
 	    .call(x_axis)
 	    .selectAll("text")
 	    .attr("y", 0)
@@ -162,13 +168,13 @@ function drawBarChart(data) {
 	    .style("text-anchor", "start");
 	svgBarChart.append("g")
 		.attr("class", "axis")
-	    .attr("transform", "translate(" + leftMargin + ", 0)")
+	    .attr("transform", "translate(" + margin.left + ", 0)")
 	    .call(y_axis);
 	
 	// axis labels
 	svgBarChart.append("text") 
 		.attr("class", "axisText")            
-	    .attr("transform", "translate(" + ( width / 2) + " ," + (height - bottomMargin + 40) + ")")
+	    .attr("transform", "translate(" + ( width / 2) + " ," + (height - margin.bottom + 40) + ")")
 	    .style("text-anchor", "middle")
 	    .text("Year");
 	svgBarChart.append("text")

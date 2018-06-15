@@ -79,3 +79,19 @@
 ## To do:
 
 ## Problems: 
+
+# 15-06-2018
+## Done:
+- parsed years on x axis bar chart
+- logarithmic scales for both axis of scatter plot to deal with outliers
+- created opacity for scatters to be able to see all scatters when there are a lot close to eachother
+- resized polar diagram, looking to fit all visualizations in one page wihtout scrolling
+
+## To do:
+- put container divs in css grid systeem to be able to control layout of html better
+- fix navigation bar in representation.html
+
+## Problems:
+- navigation bar act weird
+- positioning dropdown menu
+- fitting all visualizations in a page without scrolling

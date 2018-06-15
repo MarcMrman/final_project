@@ -5,7 +5,6 @@
 **/
 
 // TODO:
-// * keuze over outliers
 // * update per jaar na switchen variabele
 // * ra en dec (long/lang)
 
@@ -38,12 +37,9 @@ function drawScatterplot(data, year, topic, highlight) {
 
 	// characteristics for SVG element
 	var width = 500;
-	var height = 400;
+	var height = 450;
+	var margin = {left: 50, top: 10, right: 35, bottom: 50};
 	var barPadding = 5;
-	var leftMargin = 50;
-	var bottomMargin = 50;
-	var topMargin = 10
-	var rightMargin = 35;
 
 	// retrieve data from function
 	planetsYear = getScatterData(data, year);
@@ -51,29 +47,28 @@ function drawScatterplot(data, year, topic, highlight) {
 
 	// statements to determine scale y axis
 	if (topic == "planets") {
-		domain = [d3.max(planetsYear, function(d){ return +d.angular_distance * 1.10 }), 0];
+		domain = [d3.max(planetsYear, function(d){ return +d.angular_distance * 1.10 }), 0.001];
 		distance = "angular_distance";
 	}
 	else {
-		domain = [d3.max(planetsYear, function(d){ return +d.star_distance * 1.10 }), 0];
+		domain = [d3.max(planetsYear, function(d){ return +d.star_distance * 1.10 }), 0.001];
 		distance = "star_distance";
 	}
 
 	// scaling for the axis
-	var scaleXScatter = d3.scaleLinear()
- 		.domain([0, d3.max(planetsYear, function(d){ return +d.mass * 1.10 })])
- 		.range([leftMargin, width]);
-	var scaleYScatter = d3.scaleLinear()
+	var scaleXScatter = d3.scaleLog()
+ 		.domain([0.001, d3.max(planetsYear, function(d){ return +d.mass * 1.10 })])
+ 		.range([margin.left, width]);
+	var scaleYScatter = d3.scaleLog()
 		.domain(domain)
-		//.domain([d3.max(planetsYear, function(d){ return +d.distance * 1.10}), 0])
-		.range([topMargin, height - bottomMargin]);
+		.range([margin.top, height - margin.bottom]);
 
 	// axis characteristics
 	var x_axis = d3.axisBottom()
 		.scale(scaleXScatter)
-		.ticks(10);		
+		.ticks(5);		
 	var y_axis = d3.axisLeft()
-		//.ticks(5)
+		.ticks(5)
 		.scale(scaleYScatter);
 
 	// create initial svg element
@@ -87,12 +82,12 @@ function drawScatterplot(data, year, topic, highlight) {
 	svgScatterplot.append("g")
 		.attr("class", "axis")
 		.attr("id", "x_axis")
-	    .attr("transform", "translate(0," + (height - bottomMargin) + ")")
+	    .attr("transform", "translate(0," + (height - margin.bottom) + ")")
 		.call(x_axis);
 	svgScatterplot.append("g")
 		.attr("class", "axis")
 		.attr("id", "y_axis")
-	    .attr("transform", "translate(" + leftMargin + ", 0)")
+	    .attr("transform", "translate(" + margin.left + ", 0)")
 		.call(y_axis);
 
 	// axis labels
@@ -113,9 +108,9 @@ function drawScatterplot(data, year, topic, highlight) {
 	// append title to graph
 	svgScatterplot.append("text")
 		.attr("class", "title")
-	    .attr("y", 10)
-	    .attr("x", 5)
-	    .text("Distance to " + topic + " against mass of planet");
+	    .attr("y", 15)
+	    .attr("x", margin.left + 10)
+	    .text("Distance to " + topic + " against mass of planet in " + year);
 
     // creating info window
     var scatterTip = d3.tip()
@@ -133,10 +128,10 @@ function drawScatterplot(data, year, topic, highlight) {
 		.append("circle")
 		.attr("class", "circle")
 		.attr("id", "scatters")
-		.attr("cx", function(d, i){
+		.attr("cx", function(d, i) {
 	   		return scaleXScatter(planetsYear[i]["mass"]);
-	   })
-		.attr("cy", function(d, i){
+		})
+		.attr("cy", function(d, i) {
 	   		return scaleYScatter(planetsYear[i][distance]);
 	   	})
 		.attr("r", function(d, i){
@@ -152,6 +147,7 @@ function drawScatterplot(data, year, topic, highlight) {
 			if (planetsYear[i]["eccentricity"] > 0.0167) {return "#e6550d"}
 			else {return "#636363"}
 		})
+		.style("opacity", 0.8)
 		.style("stroke", function(d, i) {
 			if (highlight == "smaller" && planetsYear[i]["orbital_period"] >= 365) {
 				return "#31a354";
@@ -243,7 +239,7 @@ function addLegend(svgScatterplot){
 	d3.selectAll("#legend").remove();
 
 	// creating svg for legend
-	var widthLegend = 200;
+	var widthLegend = 300;
 	var heightLegend = 100;
 
 	var legend = d3.select("#containerScatterplot")
@@ -281,18 +277,18 @@ function addLegend(svgScatterplot){
 
     // adding text to the legend
 	legend.append("text")
-		.attr("x", 180)
+		.attr("x", 210)
 	    .attr("y", 10)
 	    .attr("dy", ".35em")
 	    .style("text-anchor", "end")
-	    .text("eccentricity below earth");
+	    .text("eccentricity lower than earth");
 
 	legend.append("text")
-		.attr("x", 180)
+		.attr("x", 210)
 	    .attr("y", 30)
 	    .attr("dy", ".35em")
 	    .style("text-anchor", "end")
-	    .text("eccentricity above earth");
+	    .text("eccentricity higher than earth");
 };
 
 // function getTopic(){
