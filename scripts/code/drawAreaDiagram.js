@@ -100,7 +100,7 @@ function drawAreaPolarDiagram(data, year) {
     		console.log("detection on area gram", methodsUsed[i])
     		if (method == methodsUsed[i]) {
     			console.log("in if statement")
-    			d3.select("svgScatterplot")
+    			d3.select("scatterplot")
     			.selectAll(planetsYear)
     			.style("fill", "#000000");}
     	})

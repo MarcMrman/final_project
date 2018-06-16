@@ -6,8 +6,6 @@
 
 
 <!--
- * JS files in apart mapje zetten in scripts, converter ook aparte folder maken in script
- * html files niet in scripts zetten
  * grid positioning css fixen 
  * representatiion html is kleiner dan andere, daarom gaat nav bar zo raar -->
 
@@ -32,29 +30,17 @@
 		<script src="scripts/code/exoplanets.js"></script>
 	</head>
 	<body>
-		
 
 		<!-- implementing a navigation bar -->
-		<nav class="navbar navbar-inverse">
-		  <div class="containerNavBar">
-		    <div class="navbar-header">
-		      <a class="navbar-brand" href="exoplanets.html">Exoplanets</a>
-		    </div>
-		    <ul class="nav navbar-nav">
-		      <li><a href="exoplanets.html">Home</a></li>
-		      <li><a href="story.html">Story</a></li>
-		      <li class="active"><a href="#">Graphical representation</a></li>
-		    </ul>
-			    <h1>Marc Moorman <br>
-					10769781 <br>
-					Data source: <br>
-					<a href="https://www.kaggle.com/eduardowoj/exoplanets-database/data">Exoplanets</a>
-		  </div>
-		</nav>
-				
+		<div class="topnav">
+			  <a href="exoplanets.html">Exoplanets</a>
+			  <a href="exoplanets.html">Home</a>
+			  <a href="story.html">Story</a>
+			  <a class="active" href="representation.html">Representation</a>
+			  <a href="about.html">About</a>
+		</div>				
 		<!-- implementing containers for different visualizations -->
-		<div id="containerBarChart">
-		</div>
+
 		
 		<!-- buttons for selecting specific planets -->
 		<div class="btn-group">
@@ -64,6 +50,8 @@
 		  <button type="button" class="btn btn-primary" id="all">Show all planets</button>
 		</div>
 
+		<div id="containerBarChart">
+		</div>
 		<!-- implementing dropdown menu -->
 		<div class="dropdown">
 		  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Y-Axis; Distance to ...
@@ -76,9 +64,31 @@
 
 		<!-- implementing containers for different visualizations -->
 		<div id="containerScatterplot">
-		</div>		
+		</div>
+
 		<div id="containerAreaDiagram">
 		</div>
+
+
+<!-- 		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-6"> 		
+
+				</div>
+			<div class="col-md-2"> 
+			</div>
+
+				<div class="col-md-4"> 
+
+			</div>
+		</div>
+		<div class="row"> 
+				<div class="col-lg-6"> 
+
+			</div>
+		</div>
+	</div> -->
+
 
 	</body>
 </html>

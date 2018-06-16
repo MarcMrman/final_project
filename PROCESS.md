@@ -86,6 +86,7 @@
 - logarithmic scales for both axis of scatter plot to deal with outliers
 - created opacity for scatters to be able to see all scatters when there are a lot close to eachother
 - resized polar diagram, looking to fit all visualizations in one page wihtout scrolling
+- put code and scripts in seperate folders on github
 
 ## To do:
 - put container divs in css grid systeem to be able to control layout of html better
@@ -95,3 +96,7 @@
 - navigation bar act weird
 - positioning dropdown menu
 - fitting all visualizations in a page without scrolling
+
+# 16-06-2018
+## Done:
+- Navigation bar made new
