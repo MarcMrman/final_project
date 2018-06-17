@@ -4,27 +4,36 @@
 * file containing the function to draw a polar area diagram
 **/
 
+var svgAreaDiagram;
+
 // function to draw the area polar diagram
-function drawAreaPolarDiagram(data, year) {
+function drawAreaPolarDiagram() {
+
+    document.getElementById("title").innerHTML = "The planets in " + year;
+
+    if (svgAreaDiagram != undefined) {
+        d3.selectAll("#svgAreaDiagram").remove();
+    }
 
 	// retrieving needed data for diagram
-	var findingsPerMethod = getAreaDiagramData(data, year)[0];
-	var methodsUsed = getAreaDiagramData(data, year)[1];
+	var areaDiagramData = getAreaDiagramData();
+    var findingsPerMethod = areaDiagramData[0];
+	var methodsUsed = areaDiagramData[1];
 	// console.log(findingsPerMethod)
 	// console.log(methodsUsed)
 
 	// characteristics for svg and diagram
-	var outerWidth = 500;
-    var outerHeight = 300;
+	var outerWidth = 600;
+    var outerHeight = 400;
     var margin = { left: 11, top: 75, right: 100, bottom: 88 };
-    var radiusMax = 100;
+    var radiusMax = 150;
 
     // setting characteristics for inside the diagram
     var innerWidth  = outerWidth  - margin.left - margin.right;
     var innerHeight = outerHeight - margin.top  - margin.bottom;
 
     // creating svg element
-    var svgAreaDiagram = d3.select("#containerAreaDiagram")
+    svgAreaDiagram = d3.select("#containerAreaDiagram")
     	.append("svg")
     	.attr("id", "svgAreaDiagram")
         .attr("width",  outerWidth)
@@ -77,12 +86,12 @@ function drawAreaPolarDiagram(data, year) {
     // position g's for chart elements
 	pieG.attr("transform", "translate(" + innerWidth / 2 + "," + innerHeight / 2 + ")");
 
-	// append title to graph
-	svgAreaDiagram.append("text")
-		.attr("class", "title")
-	    .attr("y", 15)
-	    .attr("x", margin.left + 10)
-	    .text("Methods used to find planets in " + year);
+	// // append title to graph
+	// svgAreaDiagram.append("text")
+	// 	.attr("class", "title")
+	//     .attr("y", 15)
+	//     .attr("x", margin.left + 10)
+	//     .text("Methods used to find planets in " + year);
 
 	// creating paths in diagram
     var slices = pieG.selectAll("path")
@@ -94,15 +103,13 @@ function drawAreaPolarDiagram(data, year) {
     		return colorScale(methodsUsed[i]); 
     	})
     	.on("mouseenter", function(d, i) {
-    		console.log("in mouseenter")
-    		var method = planetsYear[i]["detection_type"];
-    		console.log("detection type planet", method)
-    		console.log("detection on area gram", methodsUsed[i])
-    		if (method == methodsUsed[i]) {
+    		console.log("detection on area diagram:", methodsUsed[i])
+           // console.log(planetsYear[i])
+    		if (methodsUsed[i] == planetsYear[i]["detection_type"]) {
     			console.log("in if statement")
     			d3.select("scatterplot")
-    			.selectAll(planetsYear)
-    			.style("fill", "#000000");}
+        			.selectAll(planetsYear[i])
+        			.style("fill", "#000000");}
     	})
 		.on("mouseover", polarTip.show)
 		.on("mouseout", polarTip.hide);
@@ -113,7 +120,7 @@ function drawAreaPolarDiagram(data, year) {
 
 
 // retrieve data for year clicked on
-function getAreaDiagramData(data, year) {
+function getAreaDiagramData() {
 
 	var methods = [];
 
@@ -150,8 +157,7 @@ function getAreaDiagramData(data, year) {
 };
 
 // update polar area diagram when clicked on bar chart
-function updateAreaDiagram(data, year) {
+function updateAreaDiagram() {
 
-	d3.selectAll("#svgAreaDiagram").remove();
-	drawAreaPolarDiagram(data, year);
+	drawAreaPolarDiagram();
 };

@@ -8,12 +8,15 @@
 // * update per jaar na switchen variabele
 // * ra en dec (long/lang)
 
-var topic;
+var data;
+var topic = "planets";
+var year = 1989;
+var highlight = "all";
 var planetsYear;
 var svgScatterplot;
 
 // put together the planets found per year with names/mass/distance (star and planet itself)
-function getScatterData (data, year) {
+function getScatterData () {
 	
 	// empty list to store relevant data in
 	var planets = [];
@@ -29,8 +32,12 @@ function getScatterData (data, year) {
 };
 
 // function that draws scatter plot
-function drawScatterplot(data, year, topic, highlight) {
+function drawScatterplot() {
 	
+	if (svgScatterplot != undefined) {
+		svgScatterplot.remove();
+	};
+
 	//console.log("topic in draw scatterplot:", topic)
 	//console.log(year)
 	//console.log(highlight)
@@ -42,16 +49,16 @@ function drawScatterplot(data, year, topic, highlight) {
 	var barPadding = 5;
 
 	// retrieve data from function
-	planetsYear = getScatterData(data, year);
+	planetsYear = getScatterData();
 	console.log(planetsYear)
 
 	// statements to determine scale y axis
 	if (topic == "planets") {
-		domain = [d3.max(planetsYear, function(d){ return +d.angular_distance * 1.10 }), 0.001];
+		domain = [d3.max(planetsYear, function(d){ return +d.angular_distance * 1.10 }), 1e-6];
 		distance = "angular_distance";
 	}
 	else {
-		domain = [d3.max(planetsYear, function(d){ return +d.star_distance * 1.10 }), 0.001];
+		domain = [d3.max(planetsYear, function(d){ return +d.star_distance * 1.10 }), 1e-6];
 		distance = "star_distance";
 	}
 
@@ -106,11 +113,11 @@ function drawScatterplot(data, year, topic, highlight) {
 	    .text("Distance (in AU)");
 
 	// append title to graph
-	svgScatterplot.append("text")
-		.attr("class", "title")
-	    .attr("y", 15)
-	    .attr("x", margin.left + 10)
-	    .text("Distance to " + topic + " against mass of planet in " + year);
+	// svgScatterplot.append("text")
+	// 	.attr("class", "title")
+	//     .attr("y", 15)
+	//     .attr("x", margin.left + 10)
+	//     .text("Distance to " + topic + " against mass of planet in " + year);
 
     // creating info window
     var scatterTip = d3.tip()
@@ -143,7 +150,6 @@ function drawScatterplot(data, year, topic, highlight) {
 			}
 		})
 		.style("fill", function(d, i){	
-			// colouring to roundness (eccentricity) of planet in comparison to earht's eccentricity
 			if (planetsYear[i]["eccentricity"] > 0.0167) {return "#e6550d"}
 			else {return "#636363"}
 		})
@@ -178,61 +184,43 @@ function drawScatterplot(data, year, topic, highlight) {
 
 	// put neccesary information to update function
 	addLegend(svgScatterplot);
-	updateScatterAxis(data, year, topic, highlight);
-	highlightPlanets(data, year, topic);
 };
 
 
 // update function for the circles in scatter plot
-function updateScatters(data, year, topic, highlight) {
-
-	// remove old scatter plot and draw new one
-	d3.selectAll("#scatterplot").remove();
-	drawScatterplot(data, year, topic, highlight);
+function updateScatters() {
+	drawScatterplot();
 };
 
-// function to swithc between subject put op against each other
-function updateScatterAxis(data, year, topic, highlight){
-
-
-	// draw new scatter plot to according topic
-	document.getElementById("star").onclick = function(){
-		d3.selectAll("#scatterplot").remove();
-		topic = "star";
-		//console.log("drawSaccter: topic in click by id stars:", topic)
-		year = 1989;
-		updateScatters(data, year, topic, "all");
-	};
-
-	// draw new scatter plot to according topic
-	document.getElementById("planets").onclick = function(){
-		d3.selectAll("#scatterplot").remove();
-		topic = "planets";
-		//console.log("drawSaccter: topic in click by id planets:", topic)
-		year = 1989;
-		updateScatters(data, year, topic, "all");
-	};
+function planetAxis() {
+	console.log("Planet click");
+	topic = "planets";
+	drawScatterplot();
 };
 
-// highlight planets according to button clicked
-function highlightPlanets(data, year, topic) {
-
-	document.getElementById("smaller").onclick = function() {	
-		d3.selectAll("#scatterplot").remove();
-		drawScatterplot(data, year, topic, "smaller");
-	};
-
-	document.getElementById("greater").onclick = function() {	
-		d3.selectAll("#scatterplot").remove();
-		drawScatterplot(data, year, topic, "greater");
-	};
-
-	document.getElementById("all").onclick = function() {	
-		d3.selectAll("#scatterplot").remove();
-		drawScatterplot(data, year, topic, "all");
-	};
-
+function starAxis() {
+	console.log("starClick");
+	topic = "star";
+	drawScatterplot();
 };
+
+function smallerClick() {
+	console.log("smakker lcick")
+	highlight = "smaller";
+	drawScatterplot();
+}
+
+function greaterClick() {
+	console.log("greater lcick")
+	highlight = "greater";
+	drawScatterplot();
+}
+
+function allClick() {
+	console.log("all lcick")
+	highlight = "all";
+	drawScatterplot();
+}
 
 function addLegend(svgScatterplot){
 	
@@ -261,9 +249,6 @@ function addLegend(svgScatterplot){
       	return 10 + (i*30)
       }) //height / 2)
       .attr("x", widthLegend - widthLegend + 10)
-      // function(d, i){
-      // 	return width - 20;
-      // }
       .attr("width", 20)
       .attr("height", 20)
       .style("fill", function (d, i) {
@@ -277,21 +262,16 @@ function addLegend(svgScatterplot){
 
     // adding text to the legend
 	legend.append("text")
-		.attr("x", 210)
-	    .attr("y", 10)
+		.attr("x", widthLegend - 60)
+	    .attr("y", heightLegend - 80)
 	    .attr("dy", ".35em")
 	    .style("text-anchor", "end")
 	    .text("eccentricity lower than earth");
 
 	legend.append("text")
-		.attr("x", 210)
-	    .attr("y", 30)
+		.attr("x", widthLegend - 53)
+	    .attr("y", heightLegend - 50)
 	    .attr("dy", ".35em")
 	    .style("text-anchor", "end")
 	    .text("eccentricity higher than earth");
 };
-
-// function getTopic(){
-// 	console.log("topic in getTopic:", topic)
-// 	return topic
-// }

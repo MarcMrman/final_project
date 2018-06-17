@@ -97,6 +97,8 @@
 - positioning dropdown menu
 - fitting all visualizations in a page without scrolling
 
-# 16-06-2018
+# 18-06-2018
 ## Done:
-- Navigation bar made new
+- navigation bar made new
+- tracking dropdown menu
+- html layout

@@ -4,12 +4,10 @@
 * file containing the function to draw a bar chart
 **/
 
-// TODO:
 // * 2018 in bar chart zetten ook
-// * variable to keep track of last button pressed
 
 // function to gather data fit for the bar chart
-function getBarData(data) {
+function getBarData() {
 
 	// collecting years for axis
 	var years = [];
@@ -43,34 +41,33 @@ function getBarData(data) {
 
 		else {
 			count += 1;
-		}
+		};
+	};
+
+	if (yearsFound[i] - yearsFound[i + 1] > 1) {
+		findingsPY[i].push(0);
 	}
 	//console.log(sortedYears)
 	//console.log(years)
-	//console.log(findingsPY)
+	console.log(yearsFound)
+	console.log(findingsPY)
 
-	return [years, findingsPY, yearsFound.slice(1,23)];
+	return [years, findingsPY.slice(1,23), yearsFound.slice(1,23)];
 };
 
 // function to draw a bar chart
-function drawBarChart(data) {
-	
-	// variable to keep track of last button pressed
-	//var trackButton = "planets";
-	//trackButton = getTopic()
-	// console.log("topic in bar script", topic)
+function drawBarChart() {
+
 	// retrieving data from function
-	var years = getBarData(data)[0];
-	var findingsPY = getBarData(data)[1];
-	var yearsFound = getBarData(data)[2];
+	var barData = getBarData();
+	var years = barData[0];
+	var findingsPY = barData[1];
+	var yearsFound = barData[2];
 	// console.log(yearsFound)
 
-	// var x = getTopic();
-	// console.log("x in draw bar chart:", x)
-
 	// characteristics for SVG element
-	var width = 500;
-	var height = 400;
+	var width = 800;
+	var height = 500;
 	var barPadding = 5;
 	var margin = {left: 50, top: 10, right: 35, bottom: 50};
 	var maxRgb = 255;
@@ -143,16 +140,12 @@ function drawBarChart(data) {
 	   .on("mouseover", barTip.show)
 	   .on("mouseout", barTip.hide)
 	   .on("click", function(d, i) {
-	   		//console.log("topic in clck:", topic)
-			updateAreaDiagram(data, yearsFound[i]);
-			if (topic == "planets"){
-				//console.log("topic in planet if:", topic)
-				updateScatters(data, yearsFound[i], "planets", "all");
-			}
-			else {				
-				//console.log("topic in star if:", topic)
-				updateScatters(data, yearsFound[i], "star", "all");
-			}
+			year = yearsFound[i];
+			updateAreaDiagram();
+			updateScatters();
+			$('html, body').animate({
+		        scrollTop: $("#containerScatterplot").offset().top},
+		        'slow');
 		});
 
 	// drawing axis

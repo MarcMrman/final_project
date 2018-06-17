@@ -1,13 +1,8 @@
 <!--
 * Marc Moorman
 * 10769781 
-* HTML layout for exoplanets
+* HTML layout for the visualizations
 -->
-
-
-<!--
- * grid positioning css fixen 
- * representatiion html is kleiner dan andere, daarom gaat nav bar zo raar -->
 
 <!DOCTYPE html>
 	<html lang="en">
@@ -16,18 +11,18 @@
 		<link rel="shortcut icon" href="images/earth.jpg" type="image/png">
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="scripts/libraries/d3/d3-tip.js"></script>
-	 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  		crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 	 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-	 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
 		<link rel="stylesheet" href="exoplanets.css">
+		<script src="scripts/code/exoplanets.js"></script>
 		<script src="scripts/code/drawBarChart.js"></script>
 		<script src="scripts/code/drawScatterplot.js"></script>
 		<script src="scripts/code/drawAreaDiagram.js"></script>
-		<script src="scripts/code/exoplanets.js"></script>
 	</head>
 	<body>
 
@@ -39,56 +34,56 @@
 			  <a class="active" href="representation.html">Representation</a>
 			  <a href="about.html">About</a>
 		</div>				
-		<!-- implementing containers for different visualizations -->
-
 		
-		<!-- buttons for selecting specific planets -->
-		<div class="btn-group">
-			<p>Show planets who's orbital period is:</p>
-		  <button type="button" class="btn btn-primary" id="smaller">Smaller</button>
-		  <button type="button" class="btn btn-primary" id="greater">Greater</button>
-		  <button type="button" class="btn btn-primary" id="all">Show all planets</button>
-		</div>
-
-		<div id="containerBarChart">
-		</div>
-		<!-- implementing dropdown menu -->
-		<div class="dropdown">
-		  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Y-Axis; Distance to ...
-		  </button>
-			  <ul class="dropdown-menu">
-			  	<li class="dropdown-item" id="planets">planet</li>
-				<li class="dropdown-item" id="star">planets' star</li>
-		</ul>
-		</div>
-
-		<!-- implementing containers for different visualizations -->
-		<div id="containerScatterplot">
-		</div>
-
-		<div id="containerAreaDiagram">
-		</div>
-
-
-<!-- 		<div class="container-fluid">
+		<!-- container for grid system -->
+		<div class="container-fluid">
+			<!-- new row -->
 			<div class="row">
-				<div class="col-lg-6"> 		
-
+				<div class="col-lg-12"> 	
+				<!-- implementing containers for different visualizations -->	
+					<div id="containerBarChart">
+					</div>
 				</div>
-			<div class="col-md-2"> 
 			</div>
 
-				<div class="col-md-4"> 
-
-			</div>
-		</div>
 		<div class="row"> 
-				<div class="col-lg-6"> 
+			<!-- new collumn -->
+			<div class="col-lg-6"> 
 
+			<!-- implementing dropdown menu -->
+				<div class="dropdown">
+			  		<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Y-Axis; Distance to ...	
+			  		</button>
+				  	<div class="dropdown-menu">
+					  	<button class="dropdown-item" type="button" id="planets" onclick="planetAxis()">planet </button>
+						<button class="dropdown-item" type="button" id="star" onclick="starAxis()"> planets' star </button>
+					</div>
+				</div>
+				<!-- implementing containers for different visualizations -->
+				<div id="containerScatterplot">
+				</div>
+			</div>
+			<!-- new collumn -->
+			<div class="col-md-6">
+				<h2><span id="title"></span></h2>
+			<!-- implementing containers for different visualizations -->
+				<div id="containerAreaDiagram">
+				</div> 
+				<!-- radio buttons -->
+				<h3>
+				<p>Highlight planets with a...</p>
+				<div class="radio">
+  					<label><input type="radio" name="optradio" onchange="smallerClick()">Smaller orbital period than earth</label>
+				</div>
+				<div class="radio">
+		  			<label><input type="radio" name="optradio" onchange="greaterClick()">Greater orbital period than earth</label>
+				</div>
+				<div class="radio">
+		 			<label><input type="radio" name="optradio" onchange="allClick()">No highlights</label>
+				</div>
+			</h3>
 			</div>
 		</div>
-	</div> -->
-
-
+	</div>
 	</body>
 </html>
