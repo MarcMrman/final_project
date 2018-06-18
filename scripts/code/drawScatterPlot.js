@@ -4,8 +4,6 @@
 * file containing the function to draw a scatter plot
 **/
 
-// TODO:
-// * update per jaar na switchen variabele
 // * ra en dec (long/lang)
 
 var data;
@@ -15,7 +13,7 @@ var highlight = "all";
 var planetsYear;
 var svgScatterplot;
 
-// put together the planets found per year with names/mass/distance (star and planet itself)
+// put together the planets found per year with names/mass/distance
 function getScatterData () {
 	
 	// empty list to store relevant data in
@@ -34,13 +32,10 @@ function getScatterData () {
 // function that draws scatter plot
 function drawScatterplot() {
 	
+	// checking if there is a scatterplot to be removed to avoid removal at loading of page
 	if (svgScatterplot != undefined) {
 		svgScatterplot.remove();
 	};
-
-	//console.log("topic in draw scatterplot:", topic)
-	//console.log(year)
-	//console.log(highlight)
 
 	// characteristics for SVG element
 	var width = 500;
@@ -50,7 +45,7 @@ function drawScatterplot() {
 
 	// retrieve data from function
 	planetsYear = getScatterData();
-	console.log(planetsYear)
+	//console.log(planetsYear)
 
 	// statements to determine scale y axis
 	if (topic == "planets") {
@@ -97,6 +92,12 @@ function drawScatterplot() {
 	    .attr("transform", "translate(" + margin.left + ", 0)")
 		.call(y_axis);
 
+	svgScatterplot.append("text")
+		.attr("class", "titleScatter")
+		.attr("x", width - 440)
+		.attr("y", height - 430)
+		.text("Distance to " + topic);
+
 	// axis labels
 	svgScatterplot.append("text") 
 		.attr("class", "axisText")            
@@ -112,20 +113,14 @@ function drawScatterplot() {
 	    .style("text-anchor", "middle")
 	    .text("Distance (in AU)");
 
-	// append title to graph
-	// svgScatterplot.append("text")
-	// 	.attr("class", "title")
-	//     .attr("y", 15)
-	//     .attr("x", margin.left + 10)
-	//     .text("Distance to " + topic + " against mass of planet in " + year);
-
     // creating info window
     var scatterTip = d3.tip()
 		.attr("class", "d3-tip")
     	.offset([-20, 0]).html(function(d, i) {
     		return "<strong>Planet:</strong> <span style='color:black'>" + planetsYear[i]["name"] + "</span>" + "<br>" +
     		"<strong>Mass:</strong> <span style='color:black'>" + planetsYear[i]["mass"] + "</span>" + "<br>" +
-    		"<strong>Distance:</strong> <span style='color:black'>" + planetsYear[i][distance] + "</span>" });
+    		"<strong>Distance:</strong> <span style='color:black'>" + planetsYear[i][distance] + "</span>" + "<br>" + 
+    		"<strong>Method:</strong> <span style='color:black'>" + planetsYear[i]["detection_type"] + "</span>"});
 	svgScatterplot.call(scatterTip);
 
     // creating scatters
@@ -178,9 +173,6 @@ function drawScatterplot() {
 		})
 		.on("mouseover", scatterTip.show)
 		.on("mouseout", scatterTip.hide);
-	
-	// scatters.transition()
-	// 	.duration(5000)
 
 	// put neccesary information to update function
 	addLegend(svgScatterplot);
@@ -192,36 +184,36 @@ function updateScatters() {
 	drawScatterplot();
 };
 
+// update functions for y axis
 function planetAxis() {
 	console.log("Planet click");
 	topic = "planets";
 	drawScatterplot();
 };
-
 function starAxis() {
 	console.log("starClick");
-	topic = "star";
+	topic = "stars";
 	drawScatterplot();
 };
 
+// functions for highlighting planets by checking radio buttons
 function smallerClick() {
 	console.log("smakker lcick")
 	highlight = "smaller";
 	drawScatterplot();
-}
-
+};
 function greaterClick() {
 	console.log("greater lcick")
 	highlight = "greater";
 	drawScatterplot();
-}
-
+};
 function allClick() {
 	console.log("all lcick")
 	highlight = "all";
 	drawScatterplot();
-}
+};
 
+// function to add a legend
 function addLegend(svgScatterplot){
 	
 	d3.selectAll("#legend").remove();

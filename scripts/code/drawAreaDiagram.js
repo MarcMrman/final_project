@@ -9,7 +9,7 @@ var svgAreaDiagram;
 // function to draw the area polar diagram
 function drawAreaPolarDiagram() {
 
-    document.getElementById("title").innerHTML = "The planets in " + year;
+    document.getElementById("titleAreaDiagram").innerHTML = "The planets in " + year;
 
     if (svgAreaDiagram != undefined) {
         d3.selectAll("#svgAreaDiagram").remove();
@@ -86,13 +86,6 @@ function drawAreaPolarDiagram() {
     // position g's for chart elements
 	pieG.attr("transform", "translate(" + innerWidth / 2 + "," + innerHeight / 2 + ")");
 
-	// // append title to graph
-	// svgAreaDiagram.append("text")
-	// 	.attr("class", "title")
-	//     .attr("y", 15)
-	//     .attr("x", margin.left + 10)
-	//     .text("Methods used to find planets in " + year);
-
 	// creating paths in diagram
     var slices = pieG.selectAll("path")
     	.data(pie(findingsPerMethod))
@@ -104,20 +97,20 @@ function drawAreaPolarDiagram() {
     	})
     	.on("mouseenter", function(d, i) {
     		console.log("detection on area diagram:", methodsUsed[i])
-           // console.log(planetsYear[i])
-    		if (methodsUsed[i] == planetsYear[i]["detection_type"]) {
-    			console.log("in if statement")
-    			d3.select("scatterplot")
-        			.selectAll(planetsYear[i])
+            console.log(planetsYear[i]["detection_type"])
+    		var method = planetsYear[i]["detection_type"]
+    		if (methodsUsed[i] == method) {
+                d3.select("#containerScatterplot")
+                    console.log("seleced containerScatterplot")
+        			.selectAll()
         			.style("fill", "#000000");}
-    	})
+            })
 		.on("mouseover", polarTip.show)
 		.on("mouseout", polarTip.hide);
     slices.exit().remove();
 
     colorLegendG.call(colorLegend);
 };
-
 
 // retrieve data for year clicked on
 function getAreaDiagramData() {

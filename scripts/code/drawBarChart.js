@@ -4,7 +4,7 @@
 * file containing the function to draw a bar chart
 **/
 
-// * 2018 in bar chart zetten ook
+// * ticks fixen
 
 // function to gather data fit for the bar chart
 function getBarData() {
@@ -57,6 +57,9 @@ function getBarData() {
 
 // function to draw a bar chart
 function drawBarChart() {
+	
+	// adding title to bar chart
+    document.getElementById("titleBarChart").innerHTML = "The development of exoplanet discovery over the years";
 
 	// retrieving data from function
 	var barData = getBarData();
@@ -76,7 +79,7 @@ function drawBarChart() {
 	var minX = Math.min.apply(Math, yearsFound);
 	var maxX = Math.max.apply(Math, yearsFound);
 	var maxY = Math.max.apply(Math, findingsPY);
-	
+
 	// scaling for the axis
 	var scaleXBar = d3.scaleLinear()
  		.domain([minX, maxX])
@@ -88,10 +91,10 @@ function drawBarChart() {
 	// axis characteristics
 	var x_axis = d3.axisBottom()
 		.scale(scaleXBar)
-		.ticks(22)
-		.tickFormat(d3.format("d"));		
+		.ticks(8)
+		// .tickValue(yearsFound)
+		.tickFormat(d3.format("d"));	
 	var y_axis = d3.axisLeft()
-		//.ticks(5)
 		.scale(scaleYBar);
 	
 	// create SVG element
@@ -109,21 +112,12 @@ function drawBarChart() {
 			"<strong>Discoveries:</strong> <span style='color:black'>" + findingsPY[i] + "</span>" + "<br>" });
 	svgBarChart.call(barTip);
 
-	// append title to graph
-	svgBarChart.append("text")
-		.attr("class", "title")
-	    .attr("y", 15)
-	    .attr("x", margin.left + 10)
-	    .text("Development of Exoplanet discovery over the years");
-
 	// drawing bars in bar chart
 	svgBarChart.selectAll("rect")
 	   .data(findingsPY)
 	   .enter()
 	   .append("rect")
 	   .attr("class", "rect")
-	   // .attr("id", function(d, i){
-	   // 		return s})
 	   .attr("x", function(d, i){
 	   		return i * ((width - margin.left) / findingsPY.length) + margin.left;
 	   })
@@ -143,9 +137,8 @@ function drawBarChart() {
 			year = yearsFound[i];
 			updateAreaDiagram();
 			updateScatters();
-			$('html, body').animate({
-		        scrollTop: $("#containerScatterplot").offset().top},
-		        'slow');
+			$("html, body").animate({
+		        scrollTop: $("#containerScatterplot").offset().top}, "slow");
 		});
 
 	// drawing axis

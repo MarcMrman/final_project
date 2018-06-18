@@ -99,6 +99,15 @@
 
 # 18-06-2018
 ## Done:
-- navigation bar made new
-- tracking dropdown menu
+- navigation bar made new to fix problem
+- tracking dropdown menu choice
 - html layout
+- add explanation on representation page
+- made most variables global for accesiblity in different files/functions
+
+## To do:
+- storytelling
+- try to link area diagram to scatter plot
+
+## Problems:
+- linking area diagram to scatter (mouseenter), fixed by showing method of detection in tooltip in scatter plots
