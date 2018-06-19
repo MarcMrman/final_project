@@ -51,6 +51,8 @@ function drawAreaPolarDiagram() {
     // scaling for the g elements
     var radiusScale = d3.scaleSqrt().range([0, radiusMax]);
     var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+    
+    // console.log("indexing in names:", methodsUsed[1](0))
 
     // var for legend colors
     var colorLegend = d3.legendColor()
@@ -86,6 +88,8 @@ function drawAreaPolarDiagram() {
     // position g's for chart elements
 	pieG.attr("transform", "translate(" + innerWidth / 2 + "," + innerHeight / 2 + ")");
 
+
+
 	// creating paths in diagram
     var slices = pieG.selectAll("path")
     	.data(pie(findingsPerMethod))
@@ -96,14 +100,33 @@ function drawAreaPolarDiagram() {
     		return colorScale(methodsUsed[i]); 
     	})
     	.on("mouseenter", function(d, i) {
-    		console.log("detection on area diagram:", methodsUsed[i])
-            console.log(planetsYear[i]["detection_type"])
-    		var method = planetsYear[i]["detection_type"]
-    		if (methodsUsed[i] == method) {
-                d3.select("#containerScatterplot")
-                    console.log("seleced containerScatterplot")
-        			.selectAll()
-        			.style("fill", "#000000");}
+    	    var method = "circle#" + methodsUsed[i];
+            d3.select("#scatterplot")
+    			.selectAll(method)
+    			.style("fill", "#000000")
+                .attr("r", 7);})
+        .on("mouseleave", function(d, i) {
+            var method = "circle#" + methodsUsed[i];
+            d3.select("#scatterplot")
+                .selectAll(method)
+                .style("fill", function(d, i){  
+                    if (planetsYear[i]["eccentricity"] > 0.0167) {
+                        console.log("in if eccentricity") 
+                        return "#e6550d";}
+                    else {
+                        console.log("else eccentricity") 
+                        return "#636363";}
+                    })
+                .attr("r", function(d, i){
+                    if (planetsYear[i]["radius"] != "") {
+                        console.log("in if radius")
+                        return planetsYear[i]["radius"] * 5;
+                    }
+                    else {
+                        console.log("else of radius")
+                        return 3;
+                    }  
+                })
             })
 		.on("mouseover", polarTip.show)
 		.on("mouseout", polarTip.hide);

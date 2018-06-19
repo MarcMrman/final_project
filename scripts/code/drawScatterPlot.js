@@ -129,7 +129,9 @@ function drawScatterplot() {
 		.enter()
 		.append("circle")
 		.attr("class", "circle")
-		.attr("id", "scatters")
+		.attr("id", function(d, i) {
+			return planetsYear[i]["detection_type"];
+		})
 		.attr("cx", function(d, i) {
 	   		return scaleXScatter(planetsYear[i]["mass"]);
 		})

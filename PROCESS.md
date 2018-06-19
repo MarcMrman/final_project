@@ -111,3 +111,16 @@
 
 ## Problems:
 - linking area diagram to scatter (mouseenter), fixed by showing method of detection in tooltip in scatter plots
+
+# 19-06-2018
+## Done:
+- Ticks x axis, scaling bar chart
+- mouseenter on area diagram
+
+## To do:
+- fix mouseenter
+
+## Problem:
+- with mouseleave wrong colour and radius return. also doesnt respond to all detection types
+- mouseenter does not select right scatters
+- detection types with spaces in between do not get seen

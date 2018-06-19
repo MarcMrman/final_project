@@ -4,8 +4,6 @@
 * file containing the function to draw a bar chart
 **/
 
-// * ticks fixen
-
 // function to gather data fit for the bar chart
 function getBarData() {
 
@@ -49,10 +47,10 @@ function getBarData() {
 	}
 	//console.log(sortedYears)
 	//console.log(years)
-	console.log(yearsFound)
-	console.log(findingsPY)
+	// console.log(yearsFound)
+	// console.log(findingsPY)
 
-	return [years, findingsPY.slice(1,23), yearsFound.slice(1,23)];
+	return [years, findingsPY.slice(1,23), yearsFound.slice(1,22)];
 };
 
 // function to draw a bar chart
@@ -75,24 +73,19 @@ function drawBarChart() {
 	var margin = {left: 50, top: 10, right: 35, bottom: 50};
 	var maxRgb = 255;
 
-	// finding mininimum and maximum values
-	var minX = Math.min.apply(Math, yearsFound);
-	var maxX = Math.max.apply(Math, yearsFound);
-	var maxY = Math.max.apply(Math, findingsPY);
+ 	var scaleXBar = d3.scaleBand()
+ 		.rangeRound([margin.left, width])
+ 		.padding(0.1)
+ 		.domain(yearsFound);
 
-	// scaling for the axis
-	var scaleXBar = d3.scaleLinear()
- 		.domain([minX, maxX])
- 		.range([margin.left, width]);
 	var scaleYBar = d3.scaleLinear()
-		.domain([maxY * 1.10, 0])
+		.domain([d3.max(findingsPY) * 1.10, 0])
 		.range([margin.top, height - margin.bottom]);
 
 	// axis characteristics
 	var x_axis = d3.axisBottom()
 		.scale(scaleXBar)
-		.ticks(8)
-		// .tickValue(yearsFound)
+		.ticks(22)
 		.tickFormat(d3.format("d"));	
 	var y_axis = d3.axisLeft()
 		.scale(scaleYBar);
@@ -119,14 +112,14 @@ function drawBarChart() {
 	   .append("rect")
 	   .attr("class", "rect")
 	   .attr("x", function(d, i){
-	   		return i * ((width - margin.left) / findingsPY.length) + margin.left;
+	   		return scaleXBar(yearsFound[i]);
 	   })
 	   .attr("y", function(d, i){
-	   		return height - margin.bottom - (findingsPY[i]  * 2.5);
+	   		return scaleYBar(findingsPY[i]);
 	   })
-	   .attr("width", ((width - margin.left) / findingsPY.length) - barPadding)
+	   .attr("width", scaleXBar.bandwidth())
 	   .attr("height", function(d, i){
-	   		return findingsPY[i] * 2.5;
+	   		return height - scaleYBar(findingsPY[i]) - margin.bottom;
 	   })
 	   .attr("fill", function(d){
             return "rgb(" + (Math.round(maxRgb - d)) + ", 0, 0)";
