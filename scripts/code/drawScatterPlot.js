@@ -45,7 +45,7 @@ function drawScatterplot() {
 
 	// retrieve data from function
 	planetsYear = getScatterData();
-	//console.log(planetsYear)
+	console.log(planetsYear)
 
 	// statements to determine scale y axis
 	if (topic == "planets") {

@@ -115,12 +115,11 @@
 # 19-06-2018
 ## Done:
 - Ticks x axis, scaling bar chart
-- mouseenter on area diagram
+- mouseenter on area diagram, works for all methods now
 
 ## To do:
 - fix mouseenter
+- remove update scatters, obsolete now due to global variables
 
 ## Problem:
-- with mouseleave wrong colour and radius return. also doesnt respond to all detection types
-- mouseenter does not select right scatters
-- detection types with spaces in between do not get seen
+- detection types with spaces in between does not get seen

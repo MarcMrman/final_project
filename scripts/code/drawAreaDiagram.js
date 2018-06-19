@@ -52,8 +52,6 @@ function drawAreaPolarDiagram() {
     var radiusScale = d3.scaleSqrt().range([0, radiusMax]);
     var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
     
-    // console.log("indexing in names:", methodsUsed[1](0))
-
     // var for legend colors
     var colorLegend = d3.legendColor()
         .scale(colorScale)
@@ -89,6 +87,8 @@ function drawAreaPolarDiagram() {
 	pieG.attr("transform", "translate(" + innerWidth / 2 + "," + innerHeight / 2 + ")");
 
 
+    var woord = "marcmarcmarc"
+    console.log("index string:", woord.slice(1,5))
 
 	// creating paths in diagram
     var slices = pieG.selectAll("path")
