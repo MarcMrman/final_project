@@ -1,7 +1,7 @@
 <!--
 * Marc Moorman
 * 10769781 
-* HTML layout for exoplanets
+* HTML layout for storytelling page
 -->
 
 <!DOCTYPE html>
@@ -11,14 +11,17 @@
 		<link rel="shortcut icon" href="images/earth.jpg" type="image/png">
 		<script src="https://d3js.org/d3.v4.min.js"></script>
 		<script src="scripts/libraries/d3/d3-tip.js"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  		crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+	 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+	 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
 		<link rel="stylesheet" href="exoplanets.css">
 	</head>
 	<body>
+		
 		<!-- implementing a navigation bar -->
 		<div class="topnav">
 			  <a href="exoplanets.html">Exoplanets</a>
@@ -29,11 +32,13 @@
 			  <h1> Marc Moorman <br>	
 				10769781 <br> </h1>		  
 		</div>
-		<p>Uitleggen:
-		- eccentricity
+<!-- 		<p> For years now, we have been exploring our universe. To learn, and to maybe discover a new habitable planet. But what is it we actually find out, and how? These visualizations will show you basic characteristics of some exoplanets we have discovered. Exoplanets are planets that orbit around another star than our sun. First the development of the discoveries over 2 decades will be shown. The bar chart shows a strong increase over the years. This will probably be due to technological advances. As the polar area diagram will show, the kind of detection methods increased and differ later in time. <br>
+
+		Here after, a scatter plot and a polar area diagram will be shown. The scatter plot depicts the mass and the distance of a specific planet. Both variables will be scaled logarithmically, so keep this in mind when reading the graph. This is done because of the great differences between small/close and great/far away planets. This way all planets can be shown. Because a logarithmic scale can be hard to read, a tool tip is implemented when hovered over a planet. This tool tip will also show all information, but in text. The distances are measured in AU, astronomical units. One astronomical unit is equal to the distance between our Earth and our Sun, almost 150 million kilometers. The planets are colored according to their eccentricity in comparison with earth. Eccentricity is also known as roundness. If eccentricity is 0, it means a planet is perfectly round. The radio buttons on the right of the scatter plot is meant to compare the orbital period of these exoplanets with the one we have here on earth. This is meaured in days.  -->
+
+			Uitleggen:
 		- au, jupiter mass
 		- verloop ontdekkingen
-		- orbital period
 		- alle graphs
 			</p>
 	</body>

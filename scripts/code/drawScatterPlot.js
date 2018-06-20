@@ -4,8 +4,7 @@
 * file containing the function to draw a scatter plot
 **/
 
-// * ra en dec (long/lang)
-
+// declaring global variables
 var data;
 var topic = "planets";
 var year = 1989;
@@ -45,7 +44,7 @@ function drawScatterplot() {
 
 	// retrieve data from function
 	planetsYear = getScatterData();
-	console.log(planetsYear)
+	// console.log(planetsYear)
 
 	// statements to determine scale y axis
 	if (topic == "planets") {
@@ -120,7 +119,8 @@ function drawScatterplot() {
     		return "<strong>Planet:</strong> <span style='color:black'>" + planetsYear[i]["name"] + "</span>" + "<br>" +
     		"<strong>Mass:</strong> <span style='color:black'>" + planetsYear[i]["mass"] + "</span>" + "<br>" +
     		"<strong>Distance:</strong> <span style='color:black'>" + planetsYear[i][distance] + "</span>" + "<br>" + 
-    		"<strong>Method:</strong> <span style='color:black'>" + planetsYear[i]["detection_type"] + "</span>"});
+    		"<strong>Method:</strong> <span style='color:black'>" + planetsYear[i]["detection_type"] + "</span>"
+    	});
 	svgScatterplot.call(scatterTip);
 
     // creating scatters
@@ -128,6 +128,8 @@ function drawScatterplot() {
 	   	.data(planetsYear)
 		.enter()
 		.append("circle")
+	// scatters.transition()
+	// 	.duration(1000)
 		.attr("class", "circle")
 		.attr("id", function(d, i) {
 			return planetsYear[i]["detection_type"];
@@ -147,16 +149,20 @@ function drawScatterplot() {
 			}
 		})
 		.style("fill", function(d, i){	
-			if (planetsYear[i]["eccentricity"] > 0.0167) {return "#e6550d"}
-			else {return "#636363"}
+			if (planetsYear[i]["eccentricity"] > 0.0167) {
+				return "#016450";
+			}
+			else {
+				return "#636363";
+			}
 		})
 		.style("opacity", 0.8)
 		.style("stroke", function(d, i) {
 			if (highlight == "smaller" && planetsYear[i]["orbital_period"] >= 365) {
-				return "#31a354";
+				return "#99000d";
 			}
 			else if (highlight == "greater" && planetsYear[i]["orbital_period"] <= 365){
-				return "#31a354";
+				return "#99000d";
 			}
 			else {
 				return "#000000"
@@ -176,41 +182,30 @@ function drawScatterplot() {
 		.on("mouseover", scatterTip.show)
 		.on("mouseout", scatterTip.hide);
 
-	// put neccesary information to update function
+	// forward needed info to legend
 	addLegend(svgScatterplot);
-};
-
-
-// update function for the circles in scatter plot
-function updateScatters() {
-	drawScatterplot();
 };
 
 // update functions for y axis
 function planetAxis() {
-	console.log("Planet click");
 	topic = "planets";
 	drawScatterplot();
 };
 function starAxis() {
-	console.log("starClick");
 	topic = "stars";
 	drawScatterplot();
 };
 
 // functions for highlighting planets by checking radio buttons
 function smallerClick() {
-	console.log("smakker lcick")
 	highlight = "smaller";
 	drawScatterplot();
 };
 function greaterClick() {
-	console.log("greater lcick")
 	highlight = "greater";
 	drawScatterplot();
 };
 function allClick() {
-	console.log("all lcick")
 	highlight = "all";
 	drawScatterplot();
 };
@@ -223,13 +218,11 @@ function addLegend(svgScatterplot){
 	// creating svg for legend
 	var widthLegend = 300;
 	var heightLegend = 100;
-
 	var legend = d3.select("#containerScatterplot")
 		.append("svg")
 		.attr("id", "legend")
 		.attr("width", widthLegend)
 		.attr("height", heightLegend);
-	//svgScatterplot.selectAll("legend")
 
 	// drawing rectangles for legend
 	var two = [1, 2];
@@ -240,8 +233,8 @@ function addLegend(svgScatterplot){
 	  .append("rect")
 	  .attr("class", "legend")
       .attr("y", function(d, i) {
-      	return 10 + (i*30)
-      }) //height / 2)
+      	return 10 + (i*30);
+      })
       .attr("x", widthLegend - widthLegend + 10)
       .attr("width", 20)
       .attr("height", 20)
@@ -250,7 +243,7 @@ function addLegend(svgScatterplot){
       		return "#636363";
       	}
       	else {
-      		return "#e6550d";
+      		return "#016450";
       	}
       });
 
@@ -261,7 +254,6 @@ function addLegend(svgScatterplot){
 	    .attr("dy", ".35em")
 	    .style("text-anchor", "end")
 	    .text("eccentricity lower than earth");
-
 	legend.append("text")
 		.attr("x", widthLegend - 53)
 	    .attr("y", heightLegend - 50)

@@ -123,3 +123,14 @@
 
 ## Problem:
 - detection types with spaces in between does not get seen
+
+# 20-06-2019
+## Done: 
+- deleting obsolete updating functions
+- had infinity errors, turned out still observations were there without angular distance.
+- transition and mouseover work together now
+
+## To do:
+
+## Problems:
+- transition and mouseover etc do not work together

@@ -1,7 +1,7 @@
 <!--
 * Marc Moorman
 * 10769781 
-* HTML layout for the visualizations
+* HTML layout for exoplanet visualizations
 -->
 
 <!DOCTYPE html>
@@ -37,26 +37,26 @@
 				10769781 <br> </h1>
 		</div>				
 		
-		<!-- container for grid system -->
+		<!-- * container for grid system
+			 * divided up into rows
+		 	 * containers to store the different visualizations -->
 		<div class="container-fluid">
-			<!-- new row -->
 			<div class="row">
 				<div class="col-lg-8"> 	
 				<h2><span id="titleBarChart"></span></h2>
-				<!-- implementing containers for different visualizations -->	
 					<div id="containerBarChart">
 					</div>
 				</div>
 				<div class="col-lg-4"> 
-					<p>Welcome to the visualisations of discovered exoplanets. By clicking on one of the bars on the left, a scatter plot and a polar area diagram will be updated to that corresponding year. At these diagrams you can choose to change the y-axis, from distance to the planet to distance to the star of that planet. You can also check to see which of these planets have smaller or greater orbital periods than we do here on earth. Year without bars are years that did not have complete observations. These observations have been taken out of the dataset.</p>
+					<div id="containerText">
+						<p>Welcome to the visualisations of discovered exoplanets. By clicking on one of the bars on the left, a scatter plot and a polar area diagram will be updated to that corresponding year. At these diagrams you can choose to change the y-axis, from distance to the planet to distance to the star of that planet. You can also check to see which of these planets have smaller or greater orbital periods than we do here on earth. Only years with findings are depicted. Meaning that there can be time gaps between bars in the bar chart.</p>
+					</div>
 				</div>
 			</div>
 
 		<div class="row"> 
-			<!-- new collumn -->
 			<div class="col-lg-6"> 
 
-			<!-- implementing dropdown menu -->
 				<div class="dropdown">
 			  		<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose Y-Axis; Distance to ...	
 			  		</button>
@@ -65,14 +65,11 @@
 						<button class="dropdown-item" type="button" id="star" onclick="starAxis()"> planets' star </button>
 					</div>
 				</div>
-				<!-- implementing containers for different visualizations -->
 				<div id="containerScatterplot">
 				</div>
 			</div>
-			<!-- new collumn -->
 			<div class="col-md-6">
 				<h2><span id="titleAreaDiagram"></span></h2>
-			<!-- implementing containers for different visualizations -->
 				<div id="containerAreaDiagram">
 				</div> 
 				<!-- radio buttons -->

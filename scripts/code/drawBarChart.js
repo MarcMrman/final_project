@@ -13,7 +13,7 @@ function getBarData() {
 
 		var year = data.data[i]["discovered"];
 		years.push(year);
-	}
+	};
 	
 	sortedYears = years.sort();
 	
@@ -36,21 +36,16 @@ function getBarData() {
 			cursor = sortedYears[i];
 			count = 1;
 		}
-
 		else {
 			count += 1;
-		};
+		}
 	};
 
 	if (yearsFound[i] - yearsFound[i + 1] > 1) {
 		findingsPY[i].push(0);
-	}
-	//console.log(sortedYears)
-	//console.log(years)
-	// console.log(yearsFound)
-	// console.log(findingsPY)
+	};
 
-	return [years, findingsPY.slice(1,23), yearsFound.slice(1,22)];
+	return [years, findingsPY.slice(1,20), yearsFound.slice(1,20)];
 };
 
 // function to draw a bar chart
@@ -64,7 +59,6 @@ function drawBarChart() {
 	var years = barData[0];
 	var findingsPY = barData[1];
 	var yearsFound = barData[2];
-	// console.log(yearsFound)
 
 	// characteristics for SVG element
 	var width = 800;
@@ -85,7 +79,6 @@ function drawBarChart() {
 	// axis characteristics
 	var x_axis = d3.axisBottom()
 		.scale(scaleXBar)
-		.ticks(22)
 		.tickFormat(d3.format("d"));	
 	var y_axis = d3.axisLeft()
 		.scale(scaleYBar);
@@ -102,34 +95,39 @@ function drawBarChart() {
 		.attr("class", "d3-tip")
 	    .offset([-20, 0]).html(function(d, i) {
     		return "<strong>Year:</strong> <span style='color:black'>" + yearsFound[i] + "</span>" + "<br>" +
-			"<strong>Discoveries:</strong> <span style='color:black'>" + findingsPY[i] + "</span>" + "<br>" });
+			"<strong>Discoveries:</strong> <span style='color:black'>" + findingsPY[i] + "</span>" + "<br>" 
+		});
 	svgBarChart.call(barTip);
 
 	// drawing bars in bar chart
-	svgBarChart.selectAll("rect")
+	var bars = svgBarChart.selectAll("rect")
 	   .data(findingsPY)
 	   .enter()
-	   .append("rect")
-	   .attr("class", "rect")
-	   .attr("x", function(d, i){
+	   .append("rect");
+
+	bars.transition()
+		.duration(1000)
+	   	.attr("class", "rect")
+	   	.attr("x", function(d, i){
 	   		return scaleXBar(yearsFound[i]);
-	   })
-	   .attr("y", function(d, i){
+		})
+		.attr("y", function(d, i){
 	   		return scaleYBar(findingsPY[i]);
-	   })
-	   .attr("width", scaleXBar.bandwidth())
-	   .attr("height", function(d, i){
+	    })
+		.attr("width", scaleXBar.bandwidth())
+		.attr("height", function(d, i){
 	   		return height - scaleYBar(findingsPY[i]) - margin.bottom;
-	   })
-	   .attr("fill", function(d){
+	    })
+	    .attr("fill", function(d){
             return "rgb(" + (Math.round(maxRgb - d)) + ", 0, 0)";
-        })
-	   .on("mouseover", barTip.show)
-	   .on("mouseout", barTip.hide)
-	   .on("click", function(d, i) {
+        });
+	    
+	bars.on("mouseover", barTip.show)
+	    .on("mouseout", barTip.hide)
+	    .on("click", function(d, i) {
 			year = yearsFound[i];
-			updateAreaDiagram();
-			updateScatters();
+			drawAreaPolarDiagram();
+			drawScatterplot();
 			$("html, body").animate({
 		        scrollTop: $("#containerScatterplot").offset().top}, "slow");
 		});

@@ -24,12 +24,8 @@ h3 {
 
 p {
   text-align: left;
-}
-
-/*container make up*/
-.container {
-  height: 100px;
-  width: 100%;
+  font-family: arial;
+  font-size: 15px;
 }
 
 #containerBarChart {
@@ -47,7 +43,7 @@ p {
   margin-left: 10px;
   margin-right: auto;
   margin-top: 25px;
-  /*padding: 20px;*/
+  padding: 20px;
   background-color: white;
   float: left;
 }
@@ -62,13 +58,21 @@ p {
   float: left;
 }
 
+#containerText {
+  width: 400px;
+  margin-left: auto;
+  margin-right: 20px;
+  margin-top: 75px;
+  background-color: grey;
+  float: right;
+  padding: 10px;
+  box-shadow: 1px 1px 1px 2px rgb(217, 217, 217);
+}
+
 /* dropdown menu make up */
 .dropdown {
     position: inherit;
     display: inline-block;
-/*    left: 30%;
-    top: 50%;*/
-    /*float: inherit;*/
 }
 
 .dropdown-menu {
@@ -120,18 +124,6 @@ p {
   border-radius: 2px;
   font-family: arial;
 }
-
-/*.d3-tip:after {
-  box-sizing: border-box;
-  display: inline;
-  font-size: 10px;
-  width: 100%;
-  line-height: 1;
-  color: rgba(0, 0, 0, 1);
-  content: "\25BC";
-  position: absolute;
-  text-align: center;
-}*/
 
 .d3-tip.n:after {
   margin: -1px 0 0 0;
