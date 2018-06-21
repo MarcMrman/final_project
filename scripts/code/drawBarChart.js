@@ -15,6 +15,8 @@ function getBarData() {
 		years.push(year);
 	};
 	
+	/** * sort list to get methods in order
+		* to make counting easier **/
 	sortedYears = years.sort();
 	
 	// ticks for x axis
@@ -52,7 +54,8 @@ function getBarData() {
 function drawBarChart() {
 	
 	// adding title to bar chart
-    document.getElementById("titleBarChart").innerHTML = "The development of exoplanet discovery over the years";
+    document.getElementById("titleBarChart").innerHTML = "The development of" +
+    "exoplanet discovery over the years";
 
 	// retrieving data from function
 	var barData = getBarData();
@@ -94,17 +97,24 @@ function drawBarChart() {
 	var barTip = d3.tip()
 		.attr("class", "d3-tip")
 	    .offset([-20, 0]).html(function(d, i) {
-    		return "<strong>Year:</strong> <span style='color:black'>" + yearsFound[i] + "</span>" + "<br>" +
-			"<strong>Discoveries:</strong> <span style='color:black'>" + findingsPY[i] + "</span>" + "<br>" 
+    		return "<strong>Year:</strong> <span style='color:black'>" + 
+    		yearsFound[i] + "</span>" + "<br>" +
+			"<strong>Discoveries:</strong> <span style='color:black'>" + 
+			findingsPY[i] + "</span>" + "<br>" 
 		});
 	svgBarChart.call(barTip);
 
-	// drawing bars in bar chart
+	// creating bars in bar chart
 	var bars = svgBarChart.selectAll("rect")
 	   .data(findingsPY)
 	   .enter()
 	   .append("rect");
 
+	/** * making bars fly in with transition
+	 	* when clicked on update area diagram and scatter plot
+		* show tool tip when hovered over
+		* scroll down automatically when clicked on 
+		**/
 	bars.transition()
 		.duration(1000)
 	   	.attr("class", "rect")
@@ -151,7 +161,8 @@ function drawBarChart() {
 	// axis labels
 	svgBarChart.append("text") 
 		.attr("class", "axisText")            
-	    .attr("transform", "translate(" + ( width / 2) + " ," + (height - margin.bottom + 40) + ")")
+	    .attr("transform", "translate(" + ( width / 2) + " ," + 
+	    	(height - margin.bottom + 40) + ")")
 	    .style("text-anchor", "middle")
 	    .text("Year");
 	svgBarChart.append("text")

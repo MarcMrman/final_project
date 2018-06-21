@@ -134,3 +134,13 @@
 
 ## Problems:
 - transition and mouseover etc do not work together
+
+# 21-06-2018
+## Done:
+-
+
+## To do:
+- fix mouseleave function. either with code or by not sizing scatters by radius. also radius is missing often in data. 
+
+## Problems:
+- mouseenter selects right scatters, but colours it back with the wrong planet charactersitics sometimes

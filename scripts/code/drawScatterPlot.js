@@ -31,7 +31,7 @@ function getScatterData () {
 // function that draws scatter plot
 function drawScatterplot() {
 	
-	// checking if there is a scatterplot to be removed to avoid removal at loading of page
+	// checking for scatterplot to remove to avoid removal when loading page initially
 	if (svgScatterplot != undefined) {
 		svgScatterplot.remove();
 	};
@@ -44,21 +44,23 @@ function drawScatterplot() {
 
 	// retrieve data from function
 	planetsYear = getScatterData();
-	// console.log(planetsYear)
 
 	// statements to determine scale y axis
 	if (topic == "planets") {
-		domain = [d3.max(planetsYear, function(d){ return +d.angular_distance * 1.10 }), 1e-6];
+		domain = [d3.max(planetsYear, function(d){ 
+			return +d.angular_distance * 1.10 }), 1e-6];
 		distance = "angular_distance";
 	}
 	else {
-		domain = [d3.max(planetsYear, function(d){ return +d.star_distance * 1.10 }), 1e-6];
+		domain = [d3.max(planetsYear, function(d){ 
+			return +d.star_distance * 1.10 }), 1e-6];
 		distance = "star_distance";
 	}
 
 	// scaling for the axis
 	var scaleXScatter = d3.scaleLog()
- 		.domain([0.001, d3.max(planetsYear, function(d){ return +d.mass * 1.10 })])
+ 		.domain([0.001, d3.max(planetsYear, function(d){ 
+ 			return +d.mass * 1.10 })])
  		.range([margin.left, width]);
 	var scaleYScatter = d3.scaleLog()
 		.domain(domain)
@@ -100,7 +102,8 @@ function drawScatterplot() {
 	// axis labels
 	svgScatterplot.append("text") 
 		.attr("class", "axisText")            
-    	.attr("transform", "translate(" + (width / 2) + " ," + (height - (barPadding * 2)) + ")")
+    	.attr("transform", "translate(" + (width / 2) + " ," +
+    		(height - (barPadding * 2)) + ")")
     	.style("text-anchor", "middle")
     	.text("Mass (in jupiter mass)");
 	svgScatterplot.append("text")
@@ -116,20 +119,26 @@ function drawScatterplot() {
     var scatterTip = d3.tip()
 		.attr("class", "d3-tip")
     	.offset([-20, 0]).html(function(d, i) {
-    		return "<strong>Planet:</strong> <span style='color:black'>" + planetsYear[i]["name"] + "</span>" + "<br>" +
-    		"<strong>Mass:</strong> <span style='color:black'>" + planetsYear[i]["mass"] + "</span>" + "<br>" +
-    		"<strong>Distance:</strong> <span style='color:black'>" + planetsYear[i][distance] + "</span>" + "<br>" + 
-    		"<strong>Method:</strong> <span style='color:black'>" + planetsYear[i]["detection_type"] + "</span>"
+    		return "<strong>Planet:</strong> <span style='color:black'>" + 
+    		planetsYear[i]["name"] + "</span>" + "<br>" +
+    		"<strong>Mass:</strong> <span style='color:black'>" + 
+    		planetsYear[i]["mass"] + "</span>" + "<br>" +
+    		"<strong>Distance:</strong> <span style='color:black'>" + 
+    		planetsYear[i][distance] + "</span>" + "<br>" + 
+    		"<strong>Method:</strong> <span style='color:black'>" + 
+    		planetsYear[i]["detection_type"] + "</span>"
     	});
 	svgScatterplot.call(scatterTip);
 
-    // creating scatters
+	/** * creating scatters
+		* show tool tip when hovered over
+		* fill scatters according to eccentricity
+		* stroke scatters as highlighting when checked on radio button
+		**/
     var scatters = svgScatterplot.selectAll("circle")
 	   	.data(planetsYear)
 		.enter()
 		.append("circle")
-	// scatters.transition()
-	// 	.duration(1000)
 		.attr("class", "circle")
 		.attr("id", function(d, i) {
 			return planetsYear[i]["detection_type"];
@@ -141,16 +150,21 @@ function drawScatterplot() {
 	   		return scaleYScatter(planetsYear[i][distance]);
 	   	})
 		.attr("r", function(d, i){
+			console.log(planetsYear[i])
+			console.log("radius planet:", planetsYear[i]["radius"])
+			console.log("detection_type", planetsYear[i]["detection_type"])
 			if (planetsYear[i]["radius"] != "") {
+				console.log("in if scatter plot")
 				return planetsYear[i]["radius"] * 5;
 			}
 			else {
+				console.log("in else scatter plot")
 				return 3;
 			}
 		})
 		.style("fill", function(d, i){	
 			if (planetsYear[i]["eccentricity"] > 0.0167) {
-				return "#016450";
+				return "#fdcc8a";
 			}
 			else {
 				return "#636363";
@@ -158,10 +172,12 @@ function drawScatterplot() {
 		})
 		.style("opacity", 0.8)
 		.style("stroke", function(d, i) {
-			if (highlight == "smaller" && planetsYear[i]["orbital_period"] >= 365) {
+			if (highlight == "smaller" && +
+				planetsYear[i]["orbital_period"] >= 365) {
 				return "#99000d";
 			}
-			else if (highlight == "greater" && planetsYear[i]["orbital_period"] <= 365){
+			else if (highlight == "greater" && +
+				planetsYear[i]["orbital_period"] <= 365){
 				return "#99000d";
 			}
 			else {
@@ -243,7 +259,7 @@ function addLegend(svgScatterplot){
       		return "#636363";
       	}
       	else {
-      		return "#016450";
+      		return "#fdcc8a";
       	}
       });
 

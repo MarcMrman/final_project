@@ -7,12 +7,53 @@
 // global variable
 var svgAreaDiagram;
 
+// retrieve data for year clicked on
+function getAreaDiagramData() {
+
+    var methods = [];
+
+    // filetering out needed data
+    for (var i = 0; i < data.data.length; i ++) {
+        if (data.data[i]["discovered"] == year) {
+            methods.push(data.data[i]["detection_type"]);
+        };
+    };
+
+    /** * sort list to get methods in order
+        * to make counting easier **/
+    sortedMethods = methods.sort();
+
+    // looking for amount of findings per year
+    var methodsUsed = [];
+    var findingsPerMethod = []; 
+    var count = 0;
+    var cursor = null;
+    for (var i = 0; i < sortedMethods.length + 1; i ++) {
+
+        // counting duplicate in array for amount
+        if (sortedMethods[i] != cursor) {
+            methodsUsed.push(sortedMethods[i]);
+            findingsPerMethod.push(count);
+            cursor = sortedMethods[i];
+            count = 1;
+        }
+
+        else {
+            count += 1;
+        }
+    };
+
+    return [findingsPerMethod.slice(1,), methodsUsed.splice(0, methodsUsed.length - 1)];
+};
+
 // function to draw the area polar diagram
 function drawAreaPolarDiagram() {
 
     // adding title to html
-    document.getElementById("titleAreaDiagram").innerHTML = "The planets in " + year;
+    document.getElementById("titleAreaDiagram").innerHTML = "The planets in "
+        + year;
 
+    // checking for scatterplot to remove to avoid removal when loading page initially
     if (svgAreaDiagram != undefined) {
         d3.selectAll("#svgAreaDiagram").remove();
     };
@@ -64,8 +105,9 @@ function drawAreaPolarDiagram() {
     var polarTip = d3.tip()
 		.attr("class", "d3-tip")
     	.offset([0, 20]).html(function(d, i) {
-    		return "<strong>Method:</strong> <span style='color:black'>" + methodsUsed[i] + "</span>" + "<br>" +
-    		"<strong>Found:</strong> <span style='color:black'>" + findingsPerMethod[i] + "</span>" + "<br>"
+    		return "<strong>Method:</strong> <span style='color:black'>" + 
+            methodsUsed[i] + "</span>" + "<br>" + "<strong>Found:</strong> \
+             <span style='color:black'>" + findingsPerMethod[i] + "</span>" + "<br>"
         });
 	svgAreaDiagram.call(polarTip);
 
@@ -76,7 +118,7 @@ function drawAreaPolarDiagram() {
     // pie returns 1 to make it constant
     var pie = d3.pie().value(function (){ return 1; });
     
-    // setting height of slices, making it a polar area diagram
+    // setting height of slices making it a polar area diagram
    	var arc = d3.arc().outerRadius(function(d) { 
     	return radiusScale(d.data);
     });
@@ -87,7 +129,17 @@ function drawAreaPolarDiagram() {
     // position g's for chart elements
 	pieG.attr("transform", "translate(" + innerWidth / 2 + "," + innerHeight / 2 + ")");
 
-	// creating paths in diagram
+    svgAreaDiagram.append("text")
+        .attr("class", "titleScatter")
+        .attr("x", outerWidth - 240)
+        .attr("y", outerHeight - 390)
+        .text("Methods");
+
+    /** * creating slices for diagram
+        * show tool tip when hovered over
+        * highlight scatters when hovered over according detection methods
+        **/
+    var method;
     var slices = pieG.selectAll("path")
     	.data(pie(findingsPerMethod))
     	.enter()
@@ -97,30 +149,75 @@ function drawAreaPolarDiagram() {
     		return colorScale(methodsUsed[i]); 
     	})
         .on("mouseenter", function(d, i) {
-    	    var method = "circle#" + methodsUsed[i];
+            console.log(planetsYear[i])           
+            console.log("radius:", planetsYear[i]["radius"])
+            console.log("detection method:", planetsYear[i]["detection_type"])
+            method = "circle#" + methodsUsed[i];
             d3.select("#scatterplot")
     			.selectAll(method)
     			.style("fill", "#000000")
-                .attr("r", 7);})
+                .attr("r", 7);
+            })
         .on("mouseleave", function(d, i) {
-            var method = "circle#" + methodsUsed[i];
-            // terug kleuren gaat niet goed
+            //console.log(d3.select(method)._groups["0"]["0"].__data__);
+            dataArrayTest = [];
+            d3.selectAll(method)._groups.forEach(function(i){
+                //console.log(i);
+                i.forEach(function(j){
+                    dataArrayTest.push(j.__data__)
+                })
+            })
+            console.log(dataArrayTest);
+
+            // ["0"]["0"].__data__
+            // hij selecteert soms de verkeerde planeet bij het terug kleuren
+
             d3.select("#scatterplot")
                 .selectAll(method)
                 .attr("r", function(d, i){
-                    if (planetsYear[i]["radius"] != "") {
-                        return planetsYear[i]["radius"] * 5;
+                    if (dataArrayTest.length == 1) {   
+                        if (dataArrayTest[i]["radius"] != "") {
+                            // console.log("radius planet:", planetsYear[i]["radius"])
+                            // console.log("detection method:", planetsYear[i]["detection_type"])
+                            return dataArrayTest[i]["radius"] * 5;
+                        }
+                        else {
+                            // console.log("detection method:", planetsYear[i]["detection_type"])
+                            // console.log("radius planet:", planetsYear[i]["radius"])
+                            return 3;
+                        }
                     }
+
                     else {
-                        return 3;
-                    }
-                })
+                        if (planetsYear[i]["radius"] != "") {
+                            // console.log("radius planet:", planetsYear[i]["radius"])
+                            // console.log("detection method:", planetsYear[i]["detection_type"])
+                            return planetsYear[i]["radius"] * 5;
+                        }
+                        else {
+                            // console.log("detection method:", planetsYear[i]["detection_type"])
+                            // console.log("radius planet:", planetsYear[i]["radius"])
+                            return 3;
+                            }
+                        }
+                    })
                 .style("fill", function(d, i){  
-                    if (planetsYear[i]["eccentricity"] > 0.0167) {
-                        return "#016450";
+                    if (dataArrayTest.length == 1) {
+                        if (dataArrayTest[i]["eccentricity"] > 0.0167) {
+                            return "#fdcc8a";
+                        }
+                        else {
+                            return "#636363";
+                        }
                     }
+
                     else {
-                        return "#636363";
+                        if (planetsYear[i]["eccentricity"] > 0.0167) {
+                            return "#fdcc8a";
+                        }
+                        else {
+                            return "#636363";
+                        }
                     }
                 });
             })
@@ -130,43 +227,4 @@ function drawAreaPolarDiagram() {
 
     // calling legend
     colorLegendG.call(colorLegend);
-};
-
-// retrieve data for year clicked on
-function getAreaDiagramData() {
-
-	var methods = [];
-
-	// filetering out needed data
-	for (var i = 0; i < data.data.length; i ++) {
-		if (data.data[i]["discovered"] == year) {
-			methods.push(data.data[i]["detection_type"]);
-		};
-	};
-
-    // sort list to get methods in order
-    // to make counting easier
-	sortedMethods = methods.sort();
-
-	// looking for amount of findings per year
-	var methodsUsed = [];
-	var findingsPerMethod = [];	
-	var count = 0;
-	var cursor = null;
-	for (var i = 0; i < sortedMethods.length + 1; i ++) {
-
-		// counting duplicate in array for amount
-		if (sortedMethods[i] != cursor) {
-			methodsUsed.push(sortedMethods[i]);
-			findingsPerMethod.push(count);
-			cursor = sortedMethods[i];
-			count = 1;
-		}
-
-		else {
-			count += 1;
-		}
-	};
-
-	return [findingsPerMethod.slice(1,), methodsUsed.splice(0, methodsUsed.length - 1)];
 };
