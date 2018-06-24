@@ -21,7 +21,7 @@ function getBarData() {
 	
 	// ticks for x axis
 	var yearsFound = [null];
-	for (var i = 0; i < sortedYears.length; i ++) {
+	for (var i = 0; i < sortedYears.length - 1; i ++) {
 		if (years[i] != years[i + 1]) {
 			yearsFound.push(years[i]);
 		};
@@ -43,11 +43,12 @@ function getBarData() {
 		}
 	};
 
-	if (yearsFound[i] - yearsFound[i + 1] > 1) {
-		findingsPY[i].push(0);
-	};
-
-	return [years, findingsPY.slice(1,20), yearsFound.slice(1,20)];
+	/** * lists are sliced to get rid of the null value put into yearsfound
+	 	* null is put there to have a starting point for the iterate over
+		* otherwise the years would not add up to there corresponding findings
+		* in a year 
+		**/
+	return [findingsPY.slice(1, 20), yearsFound.slice(1, 20)];
 };
 
 // function to draw a bar chart
@@ -55,13 +56,12 @@ function drawBarChart() {
 	
 	// adding title to bar chart
     document.getElementById("titleBarChart").innerHTML = "The development of" +
-    "exoplanet discovery over the years";
+    " exoplanet discovery over the years";
 
 	// retrieving data from function
 	var barData = getBarData();
-	var years = barData[0];
-	var findingsPY = barData[1];
-	var yearsFound = barData[2];
+	var findingsPY = barData[0];
+	var yearsFound = barData[1];
 
 	// characteristics for SVG element
 	var width = 800;
@@ -76,7 +76,8 @@ function drawBarChart() {
  		.domain(yearsFound);
 
 	var scaleYBar = d3.scaleLinear()
-		.domain([d3.max(findingsPY) * 1.10, 0])
+		.domain([d3.max(findingsPY), 0])
+		.nice()
 		.range([margin.top, height - margin.bottom]);
 
 	// axis characteristics
@@ -135,6 +136,7 @@ function drawBarChart() {
 	bars.on("mouseover", barTip.show)
 	    .on("mouseout", barTip.hide)
 	    .on("click", function(d, i) {
+			// updating the displayed year in scatter plot and area diagram
 			year = yearsFound[i];
 			drawAreaPolarDiagram();
 			drawScatterplot();

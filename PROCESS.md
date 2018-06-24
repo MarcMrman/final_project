@@ -144,3 +144,19 @@
 
 ## Problems:
 - mouseenter selects right scatters, but colours it back with the wrong planet charactersitics sometimes
+
+# 22-06-2018
+## Done: 
+- make scalable axis round up with .nice() for nicer visualization
+- variable minimal values scatter plot axis
+- link to new tab for data source
+
+# 25-06-2018
+## Done:
+- fixed hovering problem. all planets are coloured back according to correct characteristics. now fill up an empty list with planets hovered over, when mouseleave code iterates back over the list. 
+-
+
+## To do:
+
+## Problems:
+- when looking for minimum value for scatterplot axis using d3.min() the scaling brakes down for two complete years.

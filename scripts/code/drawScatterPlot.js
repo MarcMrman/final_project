@@ -48,22 +48,27 @@ function drawScatterplot() {
 	// statements to determine scale y axis
 	if (topic == "planets") {
 		domain = [d3.max(planetsYear, function(d){ 
-			return +d.angular_distance * 1.10 }), 1e-6];
+			return +d.angular_distance}), 1e-6];//d3.min(planetsYear, function(d){ 
+			//return +d.angular_distance})];
 		distance = "angular_distance";
 	}
 	else {
 		domain = [d3.max(planetsYear, function(d){ 
-			return +d.star_distance * 1.10 }), 1e-6];
+			return +d.star_distance}), 1e-6];//d3.min(planetsYear, function(d){ 
+			//return +d.star_distance})];
 		distance = "star_distance";
 	}
 
 	// scaling for the axis
 	var scaleXScatter = d3.scaleLog()
- 		.domain([0.001, d3.max(planetsYear, function(d){ 
- 			return +d.mass * 1.10 })])
+ 		.domain([d3.min(planetsYear, function(d){ 
+ 			return +d.mass}), d3.max(planetsYear, function(d){ 
+ 			return +d.mass})])
+ 		.nice()
  		.range([margin.left, width]);
 	var scaleYScatter = d3.scaleLog()
 		.domain(domain)
+		.nice()
 		.range([margin.top, height - margin.bottom]);
 
 	// axis characteristics
@@ -150,15 +155,10 @@ function drawScatterplot() {
 	   		return scaleYScatter(planetsYear[i][distance]);
 	   	})
 		.attr("r", function(d, i){
-			console.log(planetsYear[i])
-			console.log("radius planet:", planetsYear[i]["radius"])
-			console.log("detection_type", planetsYear[i]["detection_type"])
 			if (planetsYear[i]["radius"] != "") {
-				console.log("in if scatter plot")
 				return planetsYear[i]["radius"] * 5;
 			}
 			else {
-				console.log("in else scatter plot")
 				return 3;
 			}
 		})

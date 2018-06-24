@@ -140,6 +140,7 @@ function drawAreaPolarDiagram() {
         * highlight scatters when hovered over according detection methods
         **/
     var method;
+    var planetsMethod;
     var slices = pieG.selectAll("path")
     	.data(pie(findingsPerMethod))
     	.enter()
@@ -149,77 +150,43 @@ function drawAreaPolarDiagram() {
     		return colorScale(methodsUsed[i]); 
     	})
         .on("mouseenter", function(d, i) {
-            console.log(planetsYear[i])           
-            console.log("radius:", planetsYear[i]["radius"])
-            console.log("detection method:", planetsYear[i]["detection_type"])
+            // looking for planets with corresponding methods
             method = "circle#" + methodsUsed[i];
+
+            // filling up list with selected planets
+            planetsMethod = [];
+            d3.selectAll(method)._groups.forEach(function(i){
+                i.forEach(function(j){
+                    planetsMethod.push(j.__data__);
+                })
+            })
+
+            // selecting planets with hovered over method of finding
             d3.select("#scatterplot")
     			.selectAll(method)
     			.style("fill", "#000000")
                 .attr("r", 7);
             })
         .on("mouseleave", function(d, i) {
-            //console.log(d3.select(method)._groups["0"]["0"].__data__);
-            dataArrayTest = [];
-            d3.selectAll(method)._groups.forEach(function(i){
-                //console.log(i);
-                i.forEach(function(j){
-                    dataArrayTest.push(j.__data__)
-                })
-            })
-            console.log(dataArrayTest);
-
-            // ["0"]["0"].__data__
-            // hij selecteert soms de verkeerde planeet bij het terug kleuren
-
+            // color and size planets back to corresponding characteristics
             d3.select("#scatterplot")
                 .selectAll(method)
                 .attr("r", function(d, i){
-                    if (dataArrayTest.length == 1) {   
-                        if (dataArrayTest[i]["radius"] != "") {
-                            // console.log("radius planet:", planetsYear[i]["radius"])
-                            // console.log("detection method:", planetsYear[i]["detection_type"])
-                            return dataArrayTest[i]["radius"] * 5;
-                        }
-                        else {
-                            // console.log("detection method:", planetsYear[i]["detection_type"])
-                            // console.log("radius planet:", planetsYear[i]["radius"])
-                            return 3;
-                        }
+                    if (planetsMethod[i]["radius"] != "") {
+                        return planetsMethod[i]["radius"] * 5;
                     }
-
                     else {
-                        if (planetsYear[i]["radius"] != "") {
-                            // console.log("radius planet:", planetsYear[i]["radius"])
-                            // console.log("detection method:", planetsYear[i]["detection_type"])
-                            return planetsYear[i]["radius"] * 5;
-                        }
-                        else {
-                            // console.log("detection method:", planetsYear[i]["detection_type"])
-                            // console.log("radius planet:", planetsYear[i]["radius"])
-                            return 3;
-                            }
-                        }
-                    })
+                        return 3;
+                    }
+                })
                 .style("fill", function(d, i){  
-                    if (dataArrayTest.length == 1) {
-                        if (dataArrayTest[i]["eccentricity"] > 0.0167) {
-                            return "#fdcc8a";
-                        }
-                        else {
-                            return "#636363";
-                        }
+                    if (planetsMethod[i]["eccentricity"] > 0.0167) {
+                        return "#fdcc8a";
                     }
-
                     else {
-                        if (planetsYear[i]["eccentricity"] > 0.0167) {
-                            return "#fdcc8a";
-                        }
-                        else {
-                            return "#636363";
-                        }
+                        return "#636363";
                     }
-                });
+                })
             })
         .on("mouseover", polarTip.show)
 		.on("mouseout", polarTip.hide);
