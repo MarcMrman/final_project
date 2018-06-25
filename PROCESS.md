@@ -157,6 +157,7 @@
 - made colors color blind friendly
 - started documentation, readme, report, proposal etc.
 - added a license
+- story page
 
 ## To do:
 
