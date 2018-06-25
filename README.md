@@ -4,6 +4,8 @@
 
 COUPLE OF SCREENSHOTS  
 
+![barChart](doc/screenshotBarChart.jpg)
+
 **Purpose**
 
 
