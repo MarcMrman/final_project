@@ -4,12 +4,20 @@
 
 COUPLE OF SCREENSHOTS  
 
-First view of the visualizations
+The first look on the visualizations
 ![barChart](doc/screenshotBarChart.png)
+
+THe lower part of the website
 ![lowerPartSite](doc/screenshotScatterArea.png)
+
+Dropdown menu
 ![dropdownMenu](doc/screenshotDropdownMenu.png)
+
+Action when hovering over Polar Area Diagram
 ![areaDiagram](doc/screenshotHoveringAreaDiagram.png)
-![planetHighlight](doc/screenshotHighlightingPlanets.png)
+
+Using the radio buttons
+![planetHighlight](doc/screenshotHighlightedPlanets.png)
 
 
 **Purpose**
