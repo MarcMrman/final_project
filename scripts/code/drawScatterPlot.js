@@ -31,6 +31,10 @@ function getScatterData () {
 // function that draws scatter plot
 function drawScatterplot() {
 	
+	// adding title to scatter plot
+    document.getElementById("titleScatterplot").innerHTML = "Distance to " + 
+    topic + " from earth";
+
 	// checking for scatterplot to remove to avoid removal when loading page initially
 	if (svgScatterplot != undefined) {
 		svgScatterplot.remove();
@@ -98,12 +102,6 @@ function drawScatterplot() {
 	    .attr("transform", "translate(" + margin.left + ", 0)")
 		.call(y_axis);
 
-	svgScatterplot.append("text")
-		.attr("class", "titleScatter")
-		.attr("x", width - 440)
-		.attr("y", height - 430)
-		.text("Distance to " + topic);
-
 	// axis labels
 	svgScatterplot.append("text") 
 		.attr("class", "axisText")            
@@ -164,10 +162,10 @@ function drawScatterplot() {
 		})
 		.style("fill", function(d, i){	
 			if (planetsYear[i]["eccentricity"] > 0.0167) {
-				return "#fdcc8a";
+				return "#08519c";
 			}
 			else {
-				return "#636363";
+				return "#bdd7e7";
 			}
 		})
 		.style("opacity", 0.8)
@@ -186,10 +184,10 @@ function drawScatterplot() {
 		})
 		.style("stroke-width", function(d, i){
 			if (highlight == "smaller" && planetsYear[i]["orbital_period"] >= 365) {
-				return 2;
+				return 4;
 			}
 			else if (highlight == "greater" && planetsYear[i]["orbital_period"] <= 365){
-				return 2;
+				return 4;
 			}
 			else {
 				return 1;
@@ -256,10 +254,10 @@ function addLegend(svgScatterplot){
       .attr("height", 20)
       .style("fill", function (d, i) {
       	if (10 + (i * 30) == 10){
-      		return "#636363";
+      		return "#bdd7e7";
       	}
       	else {
-      		return "#fdcc8a";
+      		return "#08519c";
       	}
       });
 

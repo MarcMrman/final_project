@@ -154,7 +154,9 @@
 # 25-06-2018
 ## Done:
 - fixed hovering problem. all planets are coloured back according to correct characteristics. now fill up an empty list with planets hovered over, when mouseleave code iterates back over the list. 
--
+- made colors color blind friendly
+- started documentation, readme, report, proposal etc.
+- added a license
 
 ## To do:
 

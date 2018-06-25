@@ -28,6 +28,7 @@ p {
   font-size: 15px;
 }
 
+/*make up for containers containing visualizations*/
 #containerBarChart {
   width: 1000px;
   margin-left: 10px;
@@ -63,7 +64,7 @@ p {
   margin-left: auto;
   margin-right: 20px;
   margin-top: 75px;
-  background-color: grey;
+  background-color: #cccccc;
   float: right;
   padding: 10px;
   box-shadow: 1px 1px 1px 2px rgb(217, 217, 217);

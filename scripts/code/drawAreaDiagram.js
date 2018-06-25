@@ -4,6 +4,8 @@
 * file containing the function to draw a polar area diagram
 **/
 
+// acknowledge external code --> Polar area diagram code
+
 // global variable
 var svgAreaDiagram;
 
@@ -91,7 +93,8 @@ function drawAreaPolarDiagram() {
 
     // scaling for the g elements
     var radiusScale = d3.scaleSqrt().range([0, radiusMax]);
-    var colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+    var colorScale = d3.scaleOrdinal()
+        .range(colorbrewer.YlOrBr[7]);
     
     // var for legend colors
     var colorLegend = d3.legendColor()
@@ -132,8 +135,8 @@ function drawAreaPolarDiagram() {
     svgAreaDiagram.append("text")
         .attr("class", "titleScatter")
         .attr("x", outerWidth - 240)
-        .attr("y", outerHeight - 390)
-        .text("Methods");
+        .attr("y", outerHeight - 385)
+        .text("Methods of detection");
 
     /** * creating slices for diagram
         * show tool tip when hovered over
@@ -181,10 +184,10 @@ function drawAreaPolarDiagram() {
                 })
                 .style("fill", function(d, i){  
                     if (planetsMethod[i]["eccentricity"] > 0.0167) {
-                        return "#fdcc8a";
+                        return "#08519c";
                     }
                     else {
-                        return "#636363";
+                        return "#bdd7e7";
                     }
                 })
             })

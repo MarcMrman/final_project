@@ -4,12 +4,15 @@
 * HTML layout for exoplanet visualizations
 -->
 
+<!-- credit external sources, images/bootstrap code -->
+
 <!DOCTYPE html>
 	<html lang="en">
 		<head>
 		<title>Exoplanets</title>
 		<link rel="shortcut icon" href="images/earth.jpg" type="image/png">
 		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<script src="scripts/code/colorScheme.js"></script>
 		<script src="scripts/libraries/d3/d3-tip.js"></script>
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" 
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -56,7 +59,7 @@
 				</div>
 				<div class="col-lg-4"> 
 					<div id="containerText">
-						<p>Welcome to the visualisations of discovered exoplanets. By clicking on one of the bars on the left, a scatter plot and a polar area diagram will be updated to that corresponding year. At these diagrams you can choose to change the y-axis, from distance to the planet to distance to the star of that planet. You can also check to see which of these planets have smaller or greater orbital periods than we do here on earth. Only years with findings are depicted. Meaning that there can be time gaps between bars in the bar chart.</p>
+						<p>Welcome to the visualisations of discovered exoplanets. By clicking on one of the bars on the left, a scatter plot and a polar area diagram will be updated to that corresponding year. At these diagrams you can choose to change the y-axis, from distance to the planet to distance to the star of that planet. You can also check to see which of these planets have smaller or greater orbital periods than we do here on earth. <i> <b> Note: </b> Only years with findings are depicted. Meaning that there can be time gaps between bars in the bar chart. </i></p>
 					</div>
 				</div>
 			</div>
@@ -72,6 +75,7 @@
 						<button class="dropdown-item" type="button" id="star" onclick="starAxis()"> planets' star </button>
 					</div>
 				</div>
+				<h2><span id="titleScatterplot"></span></h2>
 				<div id="containerScatterplot">
 				</div>
 			</div>
