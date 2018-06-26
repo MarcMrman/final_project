@@ -4,8 +4,6 @@
 * file containing the function to draw a polar area diagram
 **/
 
-// acknowledge external code --> Polar area diagram code
-
 // global variable
 var svgAreaDiagram;
 

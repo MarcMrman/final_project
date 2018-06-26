@@ -1,33 +1,31 @@
 # Final project on Exoplanets  
 
 "A look into space"  
+<a href="https://marcmrman.github.io/final_project/">My pages</a>   
 
-COUPLE OF SCREENSHOTS  
+The first look on the visualizations page
+![barChart](doc/screenshotBarChart.png)  
 
-The first look on the visualizations
-![barChart](doc/screenshotBarChart.png)
-
-THe lower part of the website
-![lowerPartSite](doc/screenshotScatterArea.png)
+The lower part of the website
+![lowerPartSite](doc/screenshotScatterArea.png)  
 
 Dropdown menu
-![dropdownMenu](doc/screenshotDropdownMenu.png)
+![dropdownMenu](doc/screenshotDropdownMenu.png)  
 
 Action when hovering over Polar Area Diagram
-![areaDiagram](doc/screenshotHoveringAreaDiagram.png)
+![areaDiagram](doc/screenshotHoveringAreaDiagram.png)  
 
 Using the radio buttons
-![planetHighlight](doc/screenshotHighlightedPlanets.png)
+![planetHighlight](doc/screenshotHighlightedPlanets.png)  
 
 
-**Purpose**
-The purpose of these visualizations is to give an easy look into the planets we have discovered over the years. Some characteristics of the planets will be visualized together with the method of detection.  It is meant for everyone with an interest in outer space, no prior knowledge is needed.  
+**Purpose**  
+The purpose of these visualizations is to give an easy look into the planets we have discovered over the years. Some characteristics of the planets will be visualized together with the method of detection.  It is meant for everyone with an interest in outer space, no prior knowledge is needed. One page will be didicated to giving the reader information to be able to read the visualizations page. The visualizations page itself will consist of three graphs displaying some basic characteristics of planets found. With these graphs the progress over years can be seen, the methods with which they are found and characterstics like mass and distance. 
 
 Marc Moorman  
-10769781  
-<a href="https://marcmrman.github.io/final_project/">My pages</a>  
+10769781   
 
-Copyright (c) 2018 MarcMrman
+Copyright (c) 2018 MarcMrman  
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

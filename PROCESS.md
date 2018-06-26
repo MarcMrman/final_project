@@ -163,3 +163,12 @@
 
 ## Problems:
 - when looking for minimum value for scatterplot axis using d3.min() the scaling brakes down for two complete years.
+
+# 26-06-2018
+## Done:
+- made a reports
+
+## To do:
+
+## Problems:
+
