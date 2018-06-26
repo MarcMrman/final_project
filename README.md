@@ -54,5 +54,7 @@ SOFTWARE.
 
 **External sources besides code:**
 - Shortcus image: https://phys.org/news/2014-12-percent-earth.html ,the source allows students to use their website for their own work without permission.  
+- Homepage image: http://darksky.org/ , this webiste allows for noncommercial usage only according to terms of use.  
 - Data:  https://www.kaggle.com/eduardowoj/exoplanets-database/data , CC0 1.0 Universal license, work is dedicated to public domain.  
 - Story telling knowledge: https://en.wikipedia.org/wiki/Methods_of_detecting_exoplanets#Transit_timing
+- I downloaded the color scheme from color brewer and put into a javascript file. They have the following license: Apache-Style Software License for ColorBrewer software and ColorBrewer Color Schemes. Using this color brewer all colours are color blind friendly.  

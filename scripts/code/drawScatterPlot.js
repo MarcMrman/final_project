@@ -4,7 +4,7 @@
 * file containing the function to draw a scatter plot
 **/
 
-// declaring global variables
+// declaring global variables for updating graphs
 var data;
 var topic = "planets";
 var year = 1989;
@@ -12,13 +12,12 @@ var highlight = "all";
 var planetsYear;
 var svgScatterplot;
 
-// put together the planets found per year with names/mass/distance
+// put together the planets found per year
 function getScatterData () {
 	
-	// empty list to store relevant data in
 	var planets = [];
 
-	// retrieving all releent data for specific year
+	// retrieving all relevant data for specific year
 	for (var i = 0; i < data.data.length; i ++) {
 		if (data.data[i]["discovered"] == year) {
 			planets.push(data.data[i]);
@@ -46,20 +45,18 @@ function drawScatterplot() {
 	var margin = {left: 50, top: 10, right: 35, bottom: 50};
 	var barPadding = 5;
 
-	// retrieve data from function
+	// retrieve relevent year data
 	planetsYear = getScatterData();
 
-	// statements to determine scale y axis
+	// statements to determine y-axis characteristics
 	if (topic == "planets") {
 		domain = [d3.max(planetsYear, function(d){ 
-			return +d.angular_distance}), 1e-6];//d3.min(planetsYear, function(d){ 
-			//return +d.angular_distance})];
+			return +d.angular_distance}), 1e-6];
 		distance = "angular_distance";
 	}
 	else {
 		domain = [d3.max(planetsYear, function(d){ 
-			return +d.star_distance}), 1e-6];//d3.min(planetsYear, function(d){ 
-			//return +d.star_distance})];
+			return +d.star_distance}), 1e-6];
 		distance = "star_distance";
 	}
 
@@ -197,10 +194,10 @@ function drawScatterplot() {
 		.on("mouseout", scatterTip.hide);
 
 	// forward needed info to legend
-	addLegend(svgScatterplot);
+	addLegend();
 };
 
-// update functions for y axis
+// update functions for y axis by using dropdown menu
 function planetAxis() {
 	topic = "planets";
 	drawScatterplot();
@@ -225,7 +222,7 @@ function allClick() {
 };
 
 // function to add a legend
-function addLegend(svgScatterplot){
+function addLegend(){
 	
 	d3.selectAll("#legend").remove();
 

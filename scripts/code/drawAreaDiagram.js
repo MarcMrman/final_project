@@ -23,14 +23,14 @@ function getAreaDiagramData() {
         * to make counting easier **/
     sortedMethods = methods.sort();
 
-    // looking for amount of findings per year
     var methodsUsed = [];
     var findingsPerMethod = []; 
     var count = 0;
     var cursor = null;
-    for (var i = 0; i < sortedMethods.length + 1; i ++) {
 
-        // counting duplicate in array for amount
+    // counting duplicates in array for amount of findings per year
+    for (var i = 0; i < sortedMethods.length + 1; i ++) { // + 1
+
         if (sortedMethods[i] != cursor) {
             methodsUsed.push(sortedMethods[i]);
             findingsPerMethod.push(count);
@@ -43,6 +43,9 @@ function getAreaDiagramData() {
         }
     };
 
+    /** slicing arrays to remove the first count(0) pushed to findingsPerMethod and 
+     * the undefined that is pushed to methodsUsed at the end because I count
+     * sortedMethods + 1 **/
     return [findingsPerMethod.slice(1,), methodsUsed.splice(0, methodsUsed.length - 1)];
 };
 
@@ -116,7 +119,7 @@ function drawAreaPolarDiagram() {
     radiusScale.domain([0, d3.max(findingsPerMethod)]);
     colorScale.domain(methodsUsed);
 
-    // pie returns 1 to make it constant
+    // pie returns 1 to make the angles constant
     var pie = d3.pie().value(function (){ return 1; });
     
     // setting height of slices making it a polar area diagram
@@ -169,7 +172,7 @@ function drawAreaPolarDiagram() {
                 .attr("r", 7);
             })
         .on("mouseleave", function(d, i) {
-            // color and size planets back to corresponding characteristics
+            // color and size planets back to corresponding characteristics using the list
             d3.select("#scatterplot")
                 .selectAll(method)
                 .attr("r", function(d, i){
