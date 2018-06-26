@@ -12,7 +12,7 @@ Style guide groepje 6
 
 * Comments zijn als volgt en telegramstyle: 
 
-	# this is a comment 
+	/** # this is a comment  **/
 
 	Dus geen hoofdletters en punten 
 
@@ -38,13 +38,13 @@ Style guide groepje 6
 
 * Codeblokken
 
-	if (iets) {
-	  return false;
+	if (iets) {  
+	  return false;  
 	}
 
 * Semicolons
 
-Altijd na variable toekennen en na return statement.
+	Altijd na variable toekennen en na return statement.
 
 * geen inline comments
 
