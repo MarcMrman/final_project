@@ -1,6 +1,6 @@
 # Final project on Exoplanets  
 
-"A look into space"  
+## "A look into space"  
 <a href="https://marcmrman.github.io/final_project/">My pages</a>   
 
 The first look on the visualizations page

@@ -166,9 +166,11 @@
 
 # 26-06-2018
 ## Done:
-- made a reports
+- made reports
+- read rubric to check own code before checking each others code
 
 ## To do:
+- make demo
 
 ## Problems:
 

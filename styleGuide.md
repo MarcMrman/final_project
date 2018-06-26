@@ -39,7 +39,7 @@ Style guide groepje 6
 * Codeblokken
 
 	if (iets) {  
-	  return false;  
+		return false;  
 	}
 
 * Semicolons

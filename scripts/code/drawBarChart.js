@@ -7,7 +7,7 @@
 // function to gather data fit for the bar chart
 function getBarData() {
 
-	// collecting years for axis
+	// collecting years' discoveries for axis
 	var years = [];
 	for (var i = 0; i < data.data.length; i ++) {
 
@@ -16,25 +16,26 @@ function getBarData() {
 	};
 	
 	/** * sort list to get methods in order
-		* to make counting easier **/
+		* to make counting duplicates easier **/
 	sortedYears = years.sort();
 	
 	// ticks for x axis
-	var yearsFound = [null];
+	var yearsFound = []; //null
 	for (var i = 0; i < sortedYears.length - 1; i ++) {
+
 		if (years[i] != years[i + 1]) {
 			yearsFound.push(years[i]);
 		};
 	};
 
 	// looking for amount of findings per year
-	var findingsPY = [];	
+	var findingsPerYear = [];	
 	var count = 0;
 	var cursor = null;
 	for (var i = 0; i < sortedYears.length; i ++) {
 
 		if (years[i] != cursor) {
-			findingsPY.push(count);
+			findingsPerYear.push(count);
 			cursor = sortedYears[i];
 			count = 1;
 		}
@@ -43,12 +44,10 @@ function getBarData() {
 		}
 	};
 
-	/** * lists are sliced to get rid of the null value put into yearsfound
-	 	* null is put there to have a starting point for the iterate over
-		* otherwise the years would not add up to there corresponding findings
-		* in a year 
+	/** * lists are sliced to get rid of 2018 (no findings), the first count( which is 0) pushed to findingsPerYear
+		* and to get the corresponding values on the right indexes in both lists 
 		**/
-	return [findingsPY.slice(1, 20), yearsFound.slice(1, 20)];
+	return [findingsPerYear.slice(1, 20), yearsFound.slice(0, 20)];
 };
 
 // function to draw a bar chart
@@ -60,7 +59,7 @@ function drawBarChart() {
 
 	// retrieving data from function
 	var barData = getBarData();
-	var findingsPY = barData[0];
+	var findingsPerYear = barData[0];
 	var yearsFound = barData[1];
 
 	// characteristics for SVG element
@@ -70,13 +69,13 @@ function drawBarChart() {
 	var margin = {left: 50, top: 10, right: 35, bottom: 50};
 	var maxRgb = 255;
 
+	// scaling for axis
  	var scaleXBar = d3.scaleBand()
  		.rangeRound([margin.left, width])
  		.padding(0.1)
  		.domain(yearsFound);
-
 	var scaleYBar = d3.scaleLinear()
-		.domain([d3.max(findingsPY), 0])
+		.domain([d3.max(findingsPerYear), 0])
 		.nice()
 		.range([margin.top, height - margin.bottom]);
 
@@ -101,13 +100,13 @@ function drawBarChart() {
     		return "<strong>Year:</strong> <span style='color:black'>" + 
     		yearsFound[i] + "</span>" + "<br>" +
 			"<strong>Discoveries:</strong> <span style='color:black'>" + 
-			findingsPY[i] + "</span>" + "<br>" 
+			findingsPerYear[i] + "</span>" + "<br>" 
 		});
 	svgBarChart.call(barTip);
 
 	// creating bars in bar chart
 	var bars = svgBarChart.selectAll("rect")
-	   .data(findingsPY)
+	   .data(findingsPerYear)
 	   .enter()
 	   .append("rect");
 
@@ -123,11 +122,11 @@ function drawBarChart() {
 	   		return scaleXBar(yearsFound[i]);
 		})
 		.attr("y", function(d, i){
-	   		return scaleYBar(findingsPY[i]);
+	   		return scaleYBar(findingsPerYear[i]);
 	    })
 		.attr("width", scaleXBar.bandwidth())
 		.attr("height", function(d, i){
-	   		return height - scaleYBar(findingsPY[i]) - margin.bottom;
+	   		return height - scaleYBar(findingsPerYear[i]) - margin.bottom;
 	    })
 	    .attr("fill", function(d){
             return "rgb(" + (Math.round(maxRgb - d)) + ", 0, 0)";
@@ -136,7 +135,7 @@ function drawBarChart() {
 	bars.on("mouseover", barTip.show)
 	    .on("mouseout", barTip.hide)
 	    .on("click", function(d, i) {
-			// updating the displayed year in scatter plot and area diagram
+			// updating year for scatter plot and area diagram
 			year = yearsFound[i];
 			drawAreaPolarDiagram();
 			drawScatterplot();

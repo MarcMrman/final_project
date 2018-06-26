@@ -43,7 +43,7 @@ function getAreaDiagramData() {
         }
     };
 
-    /** slicing arrays to remove the first count(0) pushed to findingsPerMethod and 
+    /** slicing arrays to remove the first count(which is 0) pushed to findingsPerMethod and 
      * the undefined that is pushed to methodsUsed at the end because I count
      * sortedMethods + 1 **/
     return [findingsPerMethod.slice(1,), methodsUsed.splice(0, methodsUsed.length - 1)];

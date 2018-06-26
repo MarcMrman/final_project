@@ -4,7 +4,7 @@
 * file containing the function to draw a scatter plot
 **/
 
-// declaring global variables for updating graphs
+// initializing global variables for updating graphs
 var data;
 var topic = "planets";
 var year = 1989;
@@ -197,30 +197,6 @@ function drawScatterplot() {
 	addLegend();
 };
 
-// update functions for y axis by using dropdown menu
-function planetAxis() {
-	topic = "planets";
-	drawScatterplot();
-};
-function starAxis() {
-	topic = "stars";
-	drawScatterplot();
-};
-
-// functions for highlighting planets by checking radio buttons
-function smallerClick() {
-	highlight = "smaller";
-	drawScatterplot();
-};
-function greaterClick() {
-	highlight = "greater";
-	drawScatterplot();
-};
-function allClick() {
-	highlight = "all";
-	drawScatterplot();
-};
-
 // function to add a legend
 function addLegend(){
 	
@@ -271,4 +247,28 @@ function addLegend(){
 	    .attr("dy", ".35em")
 	    .style("text-anchor", "end")
 	    .text("eccentricity higher than earth");
+};
+
+// update functions for y axis by using dropdown menu
+function planetAxis() {
+	topic = "planets";
+	drawScatterplot();
+};
+function starAxis() {
+	topic = "stars";
+	drawScatterplot();
+};
+
+// functions for highlighting planets by checking radio buttons
+function smallerClick() {
+	highlight = "smaller";
+	drawScatterplot();
+};
+function greaterClick() {
+	highlight = "greater";
+	drawScatterplot();
+};
+function allClick() {
+	highlight = "all";
+	drawScatterplot();
 };
