@@ -6,13 +6,21 @@
 
 // initializing global variables for updating graphs
 var data;
-var topic = "planets";
-var year = 1989;
-var highlight = "all";
-var planetsYear;
+
+// to avoid error when removing svg for the first time in drawScatterplot()
 var svgScatterplot;
 
-// put together the planets found per year
+// variable to keep track of topic displayed on y-axis
+var topic = "planets";
+
+// variable to keep track of year clicked on in bar chart
+var year = 1989;
+
+/** variable to keep track of radio button checked to 
+* highlight corresponding planets **/
+var highlight = "all";
+
+
 function getScatterData () {
 	
 	var planets = [];
@@ -27,7 +35,6 @@ function getScatterData () {
 	return planets;
 };
 
-// function that draws scatter plot
 function drawScatterplot() {
 	
 	// adding title to scatter plot
@@ -45,67 +52,74 @@ function drawScatterplot() {
 	var margin = {left: 50, top: 10, right: 35, bottom: 50};
 	var barPadding = 5;
 
-	// retrieve relevent year data
-	planetsYear = getScatterData();
+	// retrieve relevant year data
+	var planetsYear = getScatterData();
 
-	// statements to determine y-axis characteristics
+	/** * statements to determine y-axis characteristics
+		* accroding to dropdown menu button click
+		* min domain is 1e -6 because of the log scale
+		* there is no log(0) **/
 	if (topic == "planets") {
-		domain = [d3.max(planetsYear, function(d){ 
+		domain = [d3.max(planetsYear, function(d) { 
 			return +d.angular_distance}), 1e-6];
 		distance = "angular_distance";
 	}
 	else {
-		domain = [d3.max(planetsYear, function(d){ 
+		domain = [d3.max(planetsYear, function(d) { 
 			return +d.star_distance}), 1e-6];
 		distance = "star_distance";
 	}
 
-	// scaling for the axis
+	// scaling for the axes
 	var scaleXScatter = d3.scaleLog()
- 		.domain([d3.min(planetsYear, function(d){ 
- 			return +d.mass}), d3.max(planetsYear, function(d){ 
+ 		.domain([d3.min(planetsYear, function(d) { 
+ 			return +d.mass}), d3.max(planetsYear, function(d) { 
  			return +d.mass})])
  		.nice()
  		.range([margin.left, width]);
+
 	var scaleYScatter = d3.scaleLog()
 		.domain(domain)
 		.nice()
 		.range([margin.top, height - margin.bottom]);
 
-	// axis characteristics
+	// axes characteristics
 	var x_axis = d3.axisBottom()
 		.scale(scaleXScatter)
 		.ticks(5);		
+
 	var y_axis = d3.axisLeft()
 		.ticks(5)
 		.scale(scaleYScatter);
 
-	// create initial svg element
+	// create svg element
   	svgScatterplot = d3.select("#containerScatterplot")
 	    .append("svg")
 	    .attr("id", "scatterplot")
 	    .attr("width", width)
 	    .attr("height", height);
 
-	// drawing axis
+	// drawing axes
 	svgScatterplot.append("g")
 		.attr("class", "axis")
 		.attr("id", "x_axis")
 	    .attr("transform", "translate(0," + (height - margin.bottom) + ")")
 		.call(x_axis);
+
 	svgScatterplot.append("g")
 		.attr("class", "axis")
 		.attr("id", "y_axis")
 	    .attr("transform", "translate(" + margin.left + ", 0)")
 		.call(y_axis);
 
-	// axis labels
+	// axes labels
 	svgScatterplot.append("text") 
 		.attr("class", "axisText")            
     	.attr("transform", "translate(" + (width / 2) + " ," +
     		(height - (barPadding * 2)) + ")")
     	.style("text-anchor", "middle")
     	.text("Mass (in jupiter mass)");
+
 	svgScatterplot.append("text")
      	.attr("class", "axisText")
 	    .attr("transform", "rotate(-90)")
@@ -132,10 +146,8 @@ function drawScatterplot() {
 
 	/** * creating scatters
 		* show tool tip when hovered over
-		* fill scatters according to eccentricity
-		* stroke scatters as highlighting when checked on radio button
-		**/
-    var scatters = svgScatterplot.selectAll("circle")
+		* fill scatters according to eccentricity **/
+    svgScatterplot.selectAll("circle")
 	   	.data(planetsYear)
 		.enter()
 		.append("circle")
@@ -149,7 +161,8 @@ function drawScatterplot() {
 		.attr("cy", function(d, i) {
 	   		return scaleYScatter(planetsYear[i][distance]);
 	   	})
-		.attr("r", function(d, i){
+	   	// size scatters to radius if data is available
+		.attr("r", function(d, i) {
 			if (planetsYear[i]["radius"] != "") {
 				return planetsYear[i]["radius"] * 5;
 			}
@@ -157,7 +170,7 @@ function drawScatterplot() {
 				return 3;
 			}
 		})
-		.style("fill", function(d, i){	
+		.style("fill", function(d, i) {	
 			if (planetsYear[i]["eccentricity"] > 0.0167) {
 				return "#08519c";
 			}
@@ -166,13 +179,15 @@ function drawScatterplot() {
 			}
 		})
 		.style("opacity", 0.8)
+		/** * if radio button is checked, read highlight variable 
+			* and colour and stroke the corresponding planets accordingly **/
 		.style("stroke", function(d, i) {
 			if (highlight == "smaller" && +
 				planetsYear[i]["orbital_period"] >= 365) {
 				return "#99000d";
 			}
 			else if (highlight == "greater" && +
-				planetsYear[i]["orbital_period"] <= 365){
+				planetsYear[i]["orbital_period"] <= 365) {
 				return "#99000d";
 			}
 			else {
@@ -183,7 +198,7 @@ function drawScatterplot() {
 			if (highlight == "smaller" && planetsYear[i]["orbital_period"] >= 365) {
 				return 4;
 			}
-			else if (highlight == "greater" && planetsYear[i]["orbital_period"] <= 365){
+			else if (highlight == "greater" && planetsYear[i]["orbital_period"] <= 365) {
 				return 4;
 			}
 			else {
@@ -193,12 +208,10 @@ function drawScatterplot() {
 		.on("mouseover", scatterTip.show)
 		.on("mouseout", scatterTip.hide);
 
-	// forward needed info to legend
 	addLegend();
 };
 
-// function to add a legend
-function addLegend(){
+function addLegend() {
 	
 	d3.selectAll("#legend").remove();
 
@@ -212,10 +225,10 @@ function addLegend(){
 		.attr("height", heightLegend);
 
 	// drawing rectangles for legend
-	var two = [1, 2];
+	var rectangles = [1, 2];
 
 	legend.selectAll("rect")
-	  .data(two)
+	  .data(rectangles)
 	  .enter()
 	  .append("rect")
 	  .attr("class", "legend")
@@ -226,7 +239,7 @@ function addLegend(){
       .attr("width", 20)
       .attr("height", 20)
       .style("fill", function (d, i) {
-      	if (10 + (i * 30) == 10){
+      	if (10 + (i * 30) == 10) {
       		return "#bdd7e7";
       	}
       	else {
@@ -234,13 +247,14 @@ function addLegend(){
       	}
       });
 
-    // adding text to the legend
+    // adding texts to the legend
 	legend.append("text")
 		.attr("x", widthLegend - 60)
 	    .attr("y", heightLegend - 80)
 	    .attr("dy", ".35em")
 	    .style("text-anchor", "end")
 	    .text("eccentricity lower than earth");
+
 	legend.append("text")
 		.attr("x", widthLegend - 53)
 	    .attr("y", heightLegend - 50)
@@ -249,11 +263,12 @@ function addLegend(){
 	    .text("eccentricity higher than earth");
 };
 
-// update functions for y axis by using dropdown menu
+// update functions for y-axis by using dropdown menu
 function planetAxis() {
 	topic = "planets";
 	drawScatterplot();
 };
+
 function starAxis() {
 	topic = "stars";
 	drawScatterplot();
@@ -264,10 +279,12 @@ function smallerClick() {
 	highlight = "smaller";
 	drawScatterplot();
 };
+
 function greaterClick() {
 	highlight = "greater";
 	drawScatterplot();
 };
+
 function allClick() {
 	highlight = "all";
 	drawScatterplot();

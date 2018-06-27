@@ -4,7 +4,7 @@
 * file containing the function to draw a polar area diagram
 **/
 
-// global variable
+// to avoid error when removing svg for the first time in drawAreaDiagram()
 var svgAreaDiagram;
 
 // retrieve data for year clicked on
@@ -29,8 +29,7 @@ function getAreaDiagramData() {
     var cursor = null;
 
     // counting duplicates in array for amount of findings per year
-    for (var i = 0; i < sortedMethods.length + 1; i ++) { // + 1
-
+    for (var i = 0; i < sortedMethods.length + 1; i ++) {
         if (sortedMethods[i] != cursor) {
             methodsUsed.push(sortedMethods[i]);
             findingsPerMethod.push(count);
@@ -46,7 +45,8 @@ function getAreaDiagramData() {
     /** slicing arrays to remove the first count(which is 0) pushed to findingsPerMethod and 
      * the undefined that is pushed to methodsUsed at the end because I count
      * sortedMethods + 1 **/
-    return [findingsPerMethod.slice(1,), methodsUsed.splice(0, methodsUsed.length - 1)];
+    return [findingsPerMethod.slice(1,),
+             methodsUsed.splice(0, methodsUsed.length - 1)];
 };
 
 // function to draw the area polar diagram
@@ -56,7 +56,7 @@ function drawAreaPolarDiagram() {
     document.getElementById("titleAreaDiagram").innerHTML = "The planets in "
         + year;
 
-    // checking for scatterplot to remove to avoid removal when loading page initially
+    // checking for scatterplot to avoid removal when loading page initially
     if (svgAreaDiagram != undefined) {
         d3.selectAll("#svgAreaDiagram").remove();
     };
@@ -82,11 +82,13 @@ function drawAreaPolarDiagram() {
     	.attr("id", "svgAreaDiagram")
         .attr("width",  outerWidth)
         .attr("height", outerHeight);
+
     var g = svgAreaDiagram.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     // append g for chart
     var pieG = g.append("g");
+
     // append g for legend
     var colorLegendG = g.append("g")
     	.attr("class", "color-legend")
@@ -120,13 +122,17 @@ function drawAreaPolarDiagram() {
     colorScale.domain(methodsUsed);
 
     // pie returns 1 to make the angles constant
-    var pie = d3.pie().value(function (){ return 1; });
+    var pie = d3.pie().value(function () { 
+        return 1; 
+    });
     
-    // setting height of slices making it a polar area diagram
+    // setting radius of slices making it a polar area diagram
    	var arc = d3.arc().outerRadius(function(d) { 
     	return radiusScale(d.data);
     });
-    arc.innerRadius(function(d){
+
+    // setting inner radius to make slices go to middle of diagram
+    arc.innerRadius(function(d) {
     	return 0;
     });
     
@@ -139,43 +145,45 @@ function drawAreaPolarDiagram() {
         .attr("y", outerHeight - 385)
         .text("Methods of detection");
 
-    /** * creating slices for diagram
-        * show tool tip when hovered over
-        * highlight scatters when hovered over according detection methods
-        **/
+
+    // variables for storing planets when hoverd over and drawing correctly
     var method;
     var planetsMethod;
+
+    /** * creating slices for diagram
+        * show tool tip when hovered over
+        * highlight scatters when hovered over according detection methods **/
     var slices = pieG.selectAll("path")
     	.data(pie(findingsPerMethod))
     	.enter()
     	.append("path")
 		.attr("d", arc)
-    	.attr("fill", function (d, i){ 
+    	.attr("fill", function (d, i) { 
     		return colorScale(methodsUsed[i]); 
     	})
+        /** * highlighting planets when mouseenter in area diagram 
+            * to make it easier to draw them back correctly the planets 
+            * are stored in a list **/
         .on("mouseenter", function(d, i) {
-            // looking for planets with corresponding methods
             method = "circle#" + methodsUsed[i];
 
-            // filling up list with selected planets
             planetsMethod = [];
-            d3.selectAll(method)._groups.forEach(function(i){
-                i.forEach(function(j){
+            
+            d3.selectAll(method)._groups.forEach(function(i) {
+                i.forEach(function(j) {
                     planetsMethod.push(j.__data__);
                 })
             })
 
-            // selecting planets with hovered over method of finding
             d3.select("#scatterplot")
     			.selectAll(method)
     			.style("fill", "#000000")
                 .attr("r", 7);
             })
         .on("mouseleave", function(d, i) {
-            // color and size planets back to corresponding characteristics using the list
             d3.select("#scatterplot")
                 .selectAll(method)
-                .attr("r", function(d, i){
+                .attr("r", function(d, i) {
                     if (planetsMethod[i]["radius"] != "") {
                         return planetsMethod[i]["radius"] * 5;
                     }
@@ -183,7 +191,7 @@ function drawAreaPolarDiagram() {
                         return 3;
                     }
                 })
-                .style("fill", function(d, i){  
+                .style("fill", function(d, i) {  
                     if (planetsMethod[i]["eccentricity"] > 0.0167) {
                         return "#08519c";
                     }
@@ -196,6 +204,5 @@ function drawAreaPolarDiagram() {
 		.on("mouseout", polarTip.hide);
     slices.exit().remove();
 
-    // calling legend
     colorLegendG.call(colorLegend);
 };

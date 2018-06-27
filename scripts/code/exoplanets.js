@@ -1,9 +1,10 @@
 /** 
 * Marc Moorman
 * 10769781
+* main javascript file for exoplanets project
 **/
 
-// function that is triggered when page is loaded
+// function that loads data while loading
 window.onload = function() {
 
 	// function to load data
@@ -11,10 +12,11 @@ window.onload = function() {
 	  .defer(d3.json, "data/exoplanets.json")
 	  .awaitAll(loadingPage);
 
-	// function that loads page
+	// function that activates functions when page is loaded
 	function loadingPage(error, response) {
 		if (error) throw error;
 
+		// making data global
 		data = response[0];
 
 		drawBarChart();
