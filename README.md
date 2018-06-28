@@ -1,4 +1,4 @@
-# Final project on Exoplanets  
+# Final project on Planet discovery  
 
 ## "A look into space"  
 <a href="https://marcmrman.github.io/final_project/">My pages</a>   
@@ -20,7 +20,7 @@ Using the radio buttons
 
 
 **Purpose**  
-The purpose of these visualizations is to give an easy look into the planets we have discovered over the years. Some characteristics of the planets will be visualized together with the method of detection.  It is meant for everyone with an interest in outer space, no prior knowledge is needed. One page will be didicated to giving the reader information to be able to read the visualizations page. The visualizations page itself will consist of three graphs displaying some basic characteristics of planets found. With these graphs the progress over years can be seen, the methods with which they are found and characterstics like mass and distance. 
+The purpose of these visualizations is to give an easy look into the planets we have discovered over the years. Some characteristics of the planets will be visualized together with the method of detection. It is meant for everyone with an interest in outer space, no prior knowledge is needed since most terminology is further explained on the story page. One page will be dedicated to giving the reader information to be able to read the visualizations page. The visualizations page itself will consist of three graphs displaying some basic characteristics of planets found. With these graphs the progress over years can be seen, the methods with which they are found and characterstics like mass and distance. 
 
 Marc Moorman  
 10769781   
