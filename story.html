@@ -7,17 +7,18 @@
 <!DOCTYPE html>
 	<html lang="en">
 		<head>
-		<title>Exoplanets</title>
+		<title>Planets</title>
 		<link rel="shortcut icon" href="scripts/images/earth.jpg" type="image/png">
+		<!-- implementing d3 library -->
 		<script src="https://d3js.org/d3.v4.min.js"></script>
-		<script src="scripts/libraries/d3/d3-tip.js"></script>
+		<!-- libraries for adding interactive components and the make up of those elements -->
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   		crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
 	 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 	 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
+	 	<!-- file for makeup of pages -->
 		<link rel="stylesheet" href="exoplanets.css">
 	</head>
 	<body>
@@ -32,41 +33,54 @@
 				10769781 <br> </h1>		  
 		</div>
 		<br>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-4">
+					<p> For years now, we have been exploring our universe. To learn, and maybe to discover a new habitable planet for when the time comes our earth is no longer fit to life on. But what is it we actually find? And how? These visualizations will show you basic characteristics of some planets we have discovered. First the development of the discoveries over 2 decades will be shown. The bar chart shows a strong increase in discoveries over the years. This is due to technological advances. More advanced machinery and new methods make it easier for us to detect planets that are lighter and/or further away from earth.</p>
+				</div>
+				<div class="col-lg-1">
+				</div>
+				<div class="col-lg-6">
+					<p> The before mentioned increase in finding planets that are further away and smaller is demonstrated in the scatter plot. While looking over all the years check out the lightest and furthest away planet in the scatter plot. There is a significant improvement in finding far away and low in mass planets. This plot shows the distance of the planet against the mass. The distances are measured in AU, astronomical units. One astronomical unit is equal to the distance between our Earth and our Sun, almost 150 million kilometres. Mass is based on Jupiter mass. This measure is the relative weight of the planet compared with the mass of Jupiter. The heaviest planet in our solar system. Do not that both variables are scaled logarithmically. Keep this in mind while reading the graph. Because a logarithmic scale can be hard to read, a tool tip is implemented when hovered over a planet. </p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-5">
+					<p> The polar area diagram will show an increase in detection methods available to us. Over time there is an increase in types of detection methods and the popularity of these methods. Until the year 2000 radial velocity seems to be the only method used. But hereafter there is a clear increase in different methods of which Transit shows the greatest growth. </p>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-lg-10">
+					<p> <u>Because these visualizations use difficult and branch specific terminology I provide additional explanations. </u><br>
 
-		<p>This project will layout information available on our search to new planets beyond our solar system. It is advised to read this page first, for introductionary purposes. Else, if you want to see the visualisations first, click <a href="representation.html">here</a>. For further navigation through this webpage, see the navigation bar above.</p>
+					<br>
 
-		<br>
+					The planets are coloured according to their eccentricity in comparison with earth. Eccentricity is also known as roundness. If eccentricity is 0, it means a planet is perfectly round. <br>
 
-		<p> For years now, we have been exploring our universe. To learn, and to maybe discover a new habitable planet. But what is it we actually find out, and how? These visualizations will show you basic characteristics of some exoplanets we have discovered. Exoplanets are planets that orbit around another star than our sun. First the development of the discoveries over 2 decades will be shown. The bar chart shows a strong increase over the years. This will probably be due to technological advances. As the polar area diagram will show, the kind of detection methods increased and differ later in time. <br>
+					<br>
 
-		<br>
+					The radio buttons on the right of the scatter plot is meant to compare the orbital period of these planets with the one we have here on earth. This is measured in days. If one of the boxes is checked, the corresponding planets will get highlighted in the scatter plot. <br>
 
-		<b>The planets</b><br>
-		The scatter plot depicts the mass and the distance of a specific planet. Both variables will be scaled logarithmically, keep this in mind when reading the graph. This is done because of the great differences between small/close and great/far away planets. This way all planets can be shown on a reasonable scale. Because a logarithmic scale can be hard to read, a tool tip is implemented when hovered over a planet. This tool tip will also show all information, but in text. The distances are measured in AU, astronomical units. One astronomical unit is equal to the distance between our Earth and our Sun, almost 150 million kilometers. Mass is based on jupiter mass. This measure is the relative weight of the planet compared with the mass of jupiter. The heaviest planet in our solar system.<br>
+					<br>
 
-		<br>
+					<b>Methods</b><br>
+					The polar area diagram shows the methods used in a specific year to detect the planets. A short description of each method will be given here. <br>
 
-		The planets are colored according to their eccentricity in comparison with earth. Eccentricity is also known as roundness. If eccentricity is 0, it means a planet is perfectly round. <br>
+					<br>
 
-		<br>
+					<i>Imaging:</i> Direct imaging looks for light radiations from planets or suns. Its difficult to detect planets by this method due to the brightness of the stars of these planets. <br>
+					<i>Microlensing:</i> Gravitational lensing detects planets by looking for star light being deflected by the gravitational field of a planet or another star. <br>
+					<i>Pulsar:</i> (Neutron) stars emit radio waves on a regular bases. Taking its orbit into consideration, distortions in these radio waves mean that something in between breaks the wave, possibly a planet. <br>
+					<i>Velocity:</i> Radial velocity detects stars and planets by measuring the velocity of a star. If a planet crosses the view (seen from earth), it's velocity decreases. So variations in velocity help us detecting planets. Radial velocity is often used to calculate the mass of the planet as well. <br>
+					<i>Transit Photometry:</i> Transit is similar to Radial Velocity. It looks at the brightness of a star. This method however, is often used to calculate the radius of the planet as well. <br>
+					<i>Astrometry:</i> If a star has a planet orbiting itself, it will have a (small) orbit as well. So by measuring the position of a star every time, we can know if that star has a planet. <br>
+					<i>TTV:</i> Transit timing variation. This method detects variations in orbital periods of planets. The main idea is that the presence of other planets (mass) causes other planets' orbital periods to differ. The gravitational pull makes one planet accelerate and the other decelerate. By detecting a change in orbital period you know there is another planet. <br>
+					<br>
+					For more detailed information, go <a href="https://en.wikipedia.org/wiki/Methods_of_detecting_exoplanets#Transit_timing">here</a>.</p>
+				</div>
+			</div>
+		</div>
 
-		The radio buttons on the right of the scatter plot is meant to compare the orbital period of these exoplanets with the one we have here on earth. This is meaured in days. If one of the boxes is checked, the corresponding planets will get highlighted in the scatter plot.<br>
-
-		<br>
-
-		<b>Methods</b><br>
-		The polar area diagram shows the methods used in a specific year to detect the planets. A short description of each method will be given here.	<br>
-
-		<br>
-
-		<b>Imaging:</b> Direct imaging looks for light radiations from planets or suns. Its difficult to detect planets by this method due to the brightness of the stars of these planets.<br>
-		<b>Microlensing:</b> Gravitational lensing detects planets by looking for star ligth being deflected by the gravitational field of a planet or another star. <br>
-		<b>Pulsar:</b> (Neutron) stars emit radio waves on a regular bases. Taking its orbit into consideration, distortions in these radio waves mean that something inbetween breaks the wave, possibly a planet. <br>
-		<b>Velocity:</b> Radial velocity detects stars and planets by measuring the velocity of a star. If a planet crosses the view (seen from earth), it's velocity decreases. So variations in velocity help us detecting planets. Radial velocity is often used to calculate the mass of the planet as well. <br>
-		<b>Transit Photometry:</b> Transit is similar to Radial Velocity. It looks at the brightness of a star. This method however, is often used to calculate the radius of the planet as well. <br>
-		<b>Astrometry:</b> If a star has a planet orbiting itself, it will have a (small) orbit as well. So by measuring the position of a star every time, we can know if that star has a planet. <br>
-		<b>TTV:</b> Transit timing variation. This method detects variations in orbital periods of planets. The main idea is that the presence of other planets (mass) causes other planets' orbital periods to differ. The gravitational pull makes one planet accelerate and the other decelerate. By detecting a change in orbital period you know there is another planet. <br>
-		<br>
-		For more detailed information, go <a href="https://en.wikipedia.org/wiki/Methods_of_detecting_exoplanets#Transit_timing">here</a>.</p>
 	</body>
 </html>

@@ -1,16 +1,21 @@
 <!--
 * Marc Moorman
 * 10769781 
-* HTML layout for exoplanet visualizations
+* HTML layout for planet visualizations
 -->
 
 <!DOCTYPE html>
 	<html lang="en">
 		<head>
-		<title>Exoplanets</title>
+		<title>Planets</title>
 		<link rel="shortcut icon" href="scripts/images/earth.jpg" type="image/png">
+		<!-- library for making the visualizations -->
 		<script src="https://d3js.org/d3.v4.min.js"></script>
+		<!-- library for tool tips when hovering over graphs -->
 		<script src="scripts/libraries/d3/d3-tip.js"></script>
+		<!-- library to add a legend to a graph -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
+		<!-- libraries for adding interactive components and the make up of those elements -->
 		<script src="https://code.jquery.com/jquery-3.3.1.min.js" 
 		integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   		crossorigin="anonymous"></script>
@@ -24,8 +29,9 @@
 	 	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" 
 	 	crossorigin="anonymous">
 	 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.13.0/d3-legend.js"></script>
+	 	<!-- file for page make up -->
 		<link rel="stylesheet" href="exoplanets.css">
+		<!-- including all files needed for making the graphs -->
 		<script src="scripts/code/colorScheme.js"></script>
 		<script src="scripts/code/exoplanets.js"></script>
 		<script src="scripts/code/drawBarChart.js"></script>
@@ -57,7 +63,7 @@
 				</div>
 				<div class="col-lg-4"> 
 					<div id="containerText">
-						<p>Welcome to the visualisations of discovered exoplanets. By clicking on one of the bars on the left, a scatter plot and a polar area diagram will be updated to that corresponding year. At these diagrams you can choose to change the y-axis, from distance to the planet to distance to the star of that planet calculated from earth. You can also check to see which of these planets have smaller or greater orbital periods than we do here on earth using the radio buttons. <i> <b> Note: </b> Only years with findings are depicted. Meaning that there can be time gaps between bars in the bar chart. </i></p>
+						<h4>Welcome to the visualisations of discovered planets. By clicking one of the bars on the left, a scatter plot and a polar area diagram will be updated to that corresponding year. In the scatter plot you can choose to change the y-axis, from distance to the planet to distance to the star of that planet, measured from earth. You can also check to see which of these planets have smaller or greater orbital periods than here on earth. By checking one of the radio buttons the corresponding planets will be highlighted in the scatter plot. By hovering over one of the detection methods in the polar area diagram the scatter plot will show which planets have been detected by that specific method.<i> <b> Note: </b> Only years with findings are taken into consideration, meaning that there can be time gaps between bars in the bar chart. </i></h4>
 					</div>
 				</div>
 			</div>
@@ -81,7 +87,7 @@
 				<h2><span id="titleAreaDiagram"></span></h2>
 				<div id="containerAreaDiagram">
 				</div> 
-				<!-- radio buttons -->
+				<!-- implementing radio buttons -->
 				<h3>
 				<p>Highlight planets with a...</p>
 				<div class="radio">

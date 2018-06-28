@@ -16,8 +16,8 @@ var topic = "planets";
 // variable to keep track of year clicked on in bar chart
 var year = 1989;
 
-/** variable to keep track of radio button checked to 
-* highlight corresponding planets **/
+/** * variable to keep track of radio button checked to 
+	* highlight corresponding planets **/
 var highlight = "all";
 
 
@@ -52,7 +52,6 @@ function drawScatterplot() {
 	var margin = {left: 50, top: 10, right: 35, bottom: 50};
 	var barPadding = 5;
 
-	// retrieve relevant year data
 	var planetsYear = getScatterData();
 
 	/** * statements to determine y-axis characteristics

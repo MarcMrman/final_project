@@ -7,7 +7,6 @@
 // to avoid error when removing svg for the first time in drawAreaDiagram()
 var svgAreaDiagram;
 
-// retrieve data for year clicked on
 function getAreaDiagramData() {
 
     var methods = [];
@@ -49,7 +48,6 @@ function getAreaDiagramData() {
              methodsUsed.splice(0, methodsUsed.length - 1)];
 };
 
-// function to draw the area polar diagram
 function drawAreaPolarDiagram() {
 
     // adding title to html
@@ -61,7 +59,6 @@ function drawAreaPolarDiagram() {
         d3.selectAll("#svgAreaDiagram").remove();
     };
 
-	// retrieving needed data for diagram
 	var areaDiagramData = getAreaDiagramData();
     var findingsPerMethod = areaDiagramData[0];
 	var methodsUsed = areaDiagramData[1];
@@ -92,7 +89,7 @@ function drawAreaPolarDiagram() {
     // append g for legend
     var colorLegendG = g.append("g")
     	.attr("class", "color-legend")
-        .attr("transform", "translate(350, -36)");
+        .attr("transform", "translate(" + margin.right * 2.5 + "," + -36 + ")");
 
     // scaling for the g elements
     var radiusScale = d3.scaleSqrt().range([0, radiusMax]);
@@ -137,11 +134,11 @@ function drawAreaPolarDiagram() {
     });
     
     // position g's for chart elements
-	pieG.attr("transform", "translate(" + innerWidth / 2 + "," + innerHeight / 2 + ")");
+    pieG.attr("transform", "translate(" + margin.top * 2 + "," + margin.top * 2 + ")");
 
     svgAreaDiagram.append("text")
         .attr("class", "titleScatter")
-        .attr("x", outerWidth - 240)
+        .attr("x", outerWidth - 340)
         .attr("y", outerHeight - 385)
         .text("Methods of detection");
 
@@ -162,13 +159,13 @@ function drawAreaPolarDiagram() {
     		return colorScale(methodsUsed[i]); 
     	})
         /** * highlighting planets when mouseenter in area diagram 
-            * to make it easier to draw them back correctly the planets 
-            * are stored in a list **/
+            * to make it easier to draw the planets back correctly after 
+            * mouseleave the planets are stored in a list **/
         .on("mouseenter", function(d, i) {
             method = "circle#" + methodsUsed[i];
 
             planetsMethod = [];
-            
+
             d3.selectAll(method)._groups.forEach(function(i) {
                 i.forEach(function(j) {
                     planetsMethod.push(j.__data__);

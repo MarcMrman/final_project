@@ -6,7 +6,7 @@
 
 function getBarData() {
 
-	// collecting years' discoveries for axis
+	// collecting years' discoveries
 	var years = [];
 	for (var i = 0; i < data.data.length; i ++) {
 		var year = data.data[i]["discovered"];
@@ -17,7 +17,7 @@ function getBarData() {
 		* to make counting duplicates easier **/
 	sortedYears = years.sort();
 	
-	// ticks for x axis
+	// collecting years for x-axis
 	var yearsFound = [];
 	for (var i = 0; i < sortedYears.length - 1; i ++) {
 		if (years[i] != years[i + 1]) {
@@ -42,8 +42,7 @@ function getBarData() {
 	};
 
 	/** * lists are sliced to get rid of 2018 (no findings), the first count( which is 0) pushed to findingsPerYear
-		* and to get the corresponding values on the right indexes in both lists 
-		**/
+		* and to get the corresponding values on the right indexes in both lists **/
 	return [findingsPerYear.slice(1, 20), yearsFound.slice(0, 20)];
 };
 
@@ -51,9 +50,8 @@ function drawBarChart() {
 	
 	// adding title to bar chart
     document.getElementById("titleBarChart").innerHTML = "The development of" +
-    " exoplanet discovery over the years";
+    " planet discovery over the years";
 
-	// retrieving data from function
 	var barData = getBarData();
 	var findingsPerYear = barData[0];
 	var yearsFound = barData[1];
@@ -77,7 +75,7 @@ function drawBarChart() {
 		.nice()
 		.range([margin.top, height - margin.bottom]);
 
-	/** * axis characteristics
+	/** * axes characteristics
 		* tickformat removes the commas from thousands **/
 	var x_axis = d3.axisBottom()
 		.scale(scaleXBar)
@@ -141,7 +139,7 @@ function drawBarChart() {
 		        scrollTop: $("#containerScatterplot").offset().top}, "slow");
 		});
 
-	// drawing axis
+	// drawing axes
 	svgBarChart.append("g")
 	    .attr("class", "axis")
 	    .attr("transform", "translate(0," + (height - margin.bottom) + ")")
@@ -158,7 +156,7 @@ function drawBarChart() {
 	    .attr("transform", "translate(" + margin.left + ", 0)")
 	    .call(y_axis);
 	
-	// axis labels
+	// adding axes labels
 	svgBarChart.append("text") 
 		.attr("class", "axisText")            
 	    .attr("transform", "translate(" + ( width / 2) + " ," + 

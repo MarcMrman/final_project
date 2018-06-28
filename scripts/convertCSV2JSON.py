@@ -1,6 +1,6 @@
 # Marc Moorman
 # 10769781
-# Program that writes csv file into json
+# Program that converts csv files into json
 
 import csv
 import json

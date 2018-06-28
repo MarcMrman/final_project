@@ -1,7 +1,7 @@
 /*
 * Marc Moorman
 * 10769781
-* Viewedlinks css file
+* make up file for exoplanets project
 */
 
 /* headers make up*/
@@ -20,6 +20,12 @@ h2 {
 h3 {
   font-family: arial;
   font-size: 15px;
+}
+
+h4 {
+  font-family: arial;
+  font-size: 14px;
+  text-align: center;
 }
 
 p {
@@ -87,9 +93,9 @@ p {
     right: 0;
 }
 
-/* navigation bar make up; black background color */
+/* navigation bar make up */
 .topnav {
-    background-color: #333;
+    background-color: black;
     overflow: hidden;
 }
 
