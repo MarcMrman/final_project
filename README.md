@@ -2,6 +2,8 @@
 
 ## "A look into space"  
 <a href="https://marcmrman.github.io/final_project/">My pages</a>   
+<a href="https://vimeo.com/277466391">Project demo </a>
+<a href="https://vimeo.com/user86733844/review/277466391/a62230d508">Andere link</a>
 
 The first look on the visualizations page
 ![barChart](doc/screenshotBarChart.png)  
