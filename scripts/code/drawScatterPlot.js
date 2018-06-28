@@ -22,6 +22,7 @@ var highlight = "all";
 
 
 function getScatterData () {
+// function that gathers data for year clicked on
 	
 	var planets = [];
 
@@ -36,6 +37,7 @@ function getScatterData () {
 };
 
 function drawScatterplot() {
+// function that draws scatter plot on a SVG
 	
 	// adding title to scatter plot
     document.getElementById("titleScatterplot").innerHTML = "Distance to " + 
@@ -211,6 +213,7 @@ function drawScatterplot() {
 };
 
 function addLegend() {
+// draws a legend by appending rectangles to SVG
 	
 	d3.selectAll("#legend").remove();
 
@@ -262,29 +265,37 @@ function addLegend() {
 	    .text("eccentricity higher than earth");
 };
 
-// update functions for y-axis by using dropdown menu
 function planetAxis() {
+// function that updates y-axis by using dropdown menu
+
 	topic = "planets";
 	drawScatterplot();
 };
 
 function starAxis() {
+// function that updates y-axis by using dropdown menu
+
 	topic = "stars";
 	drawScatterplot();
 };
 
-// functions for highlighting planets by checking radio buttons
 function smallerClick() {
+// function for highlighting planets by checking radio buttons
+
 	highlight = "smaller";
 	drawScatterplot();
 };
 
 function greaterClick() {
+// function for highlighting planets by checking radio buttons
+
 	highlight = "greater";
 	drawScatterplot();
 };
 
 function allClick() {
+// function for highlighting planets by checking radio buttons
+
 	highlight = "all";
 	drawScatterplot();
 };

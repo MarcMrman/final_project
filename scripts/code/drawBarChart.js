@@ -5,6 +5,7 @@
 **/
 
 function getBarData() {
+// function that gathers data for year clicked on
 
 	// collecting years' discoveries
 	var years = [];
@@ -47,6 +48,7 @@ function getBarData() {
 };
 
 function drawBarChart() {
+// function that draws a bar chart on a SVG
 	
 	// adding title to bar chart
     document.getElementById("titleBarChart").innerHTML = "The development of" +

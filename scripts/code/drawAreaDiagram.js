@@ -8,6 +8,7 @@
 var svgAreaDiagram;
 
 function getAreaDiagramData() {
+// function that gathers data for year clicked on
 
     var methods = [];
 
@@ -49,6 +50,7 @@ function getAreaDiagramData() {
 };
 
 function drawAreaPolarDiagram() {
+// function that draws a polar area diagram on a SVG
 
     // adding title to html
     document.getElementById("titleAreaDiagram").innerHTML = "The planets in "
